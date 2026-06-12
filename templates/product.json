@@ -1,7 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "main-product"
+      "type": "main-product",
+      "settings": {
+        "avatar_3": "shopify://shop_images/Image_19.jpg",
+        "social_name_1": "Lerato",
+        "social_name_2": "Aisha",
+        "social_count": "10000+",
+        "social_text": "others love our products!",
+        "checkout_label": "Secure Checkout with Paystack",
+        "highlights": "Red 630nm · Deep red 660nm · Near-infrared 850nm\n7 light modes for skin, calm & recovery\nCordless, lightweight & skin-safe (no UV)\nJust 10 minutes a day",
+        "shipping_note": "Ships door-to-door in 7–14 days · Free over R750"
+      }
     },
     "how": {
       "type": "how-it-works",
@@ -35,7 +54,11 @@
         "s1",
         "s2",
         "s3"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "The ritual",
+        "heading": "How it works"
+      }
     },
     "science": {
       "type": "science",
@@ -99,7 +122,18 @@
         "wl1",
         "wl2",
         "wl3"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Science-backed",
+        "heading": "Light your skin understands",
+        "lede": "Specific wavelengths of red and near-infrared light are studied for the way they may support the skin's natural processes. Here's what consistent use is designed to help with."
+      }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "reviews & counting"
+      }
     },
     "guarantee": {
       "type": "guarantee",
@@ -142,7 +176,11 @@
         "g2",
         "g3",
         "g4"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "The Orivo promise",
+        "heading": "Try it, love it — or send it back"
+      }
     },
     "faq": {
       "type": "faq",
@@ -181,12 +219,10 @@
         "f2",
         "f3",
         "f4"
-      ]
-    },
-    "reviews": {
-      "type": "product-reviews",
+      ],
       "settings": {
-        "heading": "reviews & counting"
+        "eyebrow": "Good to know",
+        "heading": "Questions, answered"
       }
     }
   },
