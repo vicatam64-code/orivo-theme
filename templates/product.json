@@ -182,12 +182,19 @@
         "f3",
         "f4"
       ]
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "reviews & counting"
+      }
     }
   },
   "order": [
     "main",
     "how",
     "science",
+    "reviews",
     "guarantee",
     "faq"
   ]
