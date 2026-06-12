@@ -12,6 +12,7 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "image": "shopify://shop_images/Product_Staging-8fe3d9e6-8ab0-4ada-8761-8074f226b54d_Product_Staging_Edit_with_AI.jpg",
         "placeholder": "Add a full-bleed lifestyle image",
         "eyebrow": "The Orivo Light Ritual",
         "heading": "Skin, restored by light.",
