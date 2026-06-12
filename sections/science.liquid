@@ -1,32 +1,78 @@
+{%- liquid
+  assign mf = blank
+  if product != blank
+    assign mf = product.metafields.custom
+  endif
+  assign use_product = false
+  if mf != blank and mf.benefits != blank
+    assign use_product = true
+  endif
+-%}
 <section class="section science" id="science">
   <div class="wrap">
-    <div class="section-head center head reveal">
-      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      <h2>{{ section.settings.heading }}</h2>
-      {%- if section.settings.lede != blank -%}<p class="lede measure" style="margin-inline:auto">{{ section.settings.lede }}</p>{%- endif -%}
-    </div>
-    <div class="bene-grid">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'benefit' -%}
-        <div class="bene-card reveal" {{ block.shopify_attributes }}>
-          <span class="ic">{% render 'icon', name: block.settings.icon, size: 26 %}</span>
-          <h3>{{ block.settings.title }}</h3>
-          <p>{{ block.settings.text }}</p>
+    {%- if use_product -%}
+      {%- comment -%} Product page: render this product's own science content from metafields {%- endcomment -%}
+      <div class="section-head center head reveal">
+        {%- if mf.science_eyebrow != blank -%}<p class="eyebrow">{{ mf.science_eyebrow }}</p>{%- endif -%}
+        <h2>{{ mf.science_title | default: 'The science' }}</h2>
+        {%- if mf.science_intro != blank -%}<p class="lede measure" style="margin-inline:auto">{{ mf.science_intro }}</p>{%- endif -%}
+      </div>
+      <div class="bene-grid">
+        {%- assign blines = mf.benefits.value | newline_to_br | split: '<br />' -%}
+        {%- for line in blines -%}{%- assign bp = line | strip | split: '|' -%}{%- if bp.size > 1 -%}
+        <div class="bene-card reveal">
+          <span class="ic">{% render 'icon', name: bp[0] | strip, size: 26 %}</span>
+          <h3>{{ bp[1] | strip }}</h3>
+          <p>{{ bp[2] | strip }}</p>
         </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-    <div class="wave-band reveal" style="margin-top:52px;">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'wavelength' -%}
-        <div class="cell" {{ block.shopify_attributes }}>
-          <div class="nm">{{ block.settings.value }}<span>{{ block.settings.unit }}</span></div>
-          <h4>{{ block.settings.title }}</h4>
-          <p>{{ block.settings.text }}</p>
+        {%- endif -%}{%- endfor -%}
+      </div>
+      {%- if mf.features != blank -%}
+      <div class="section-head center reveal" style="margin-top:64px;">
+        {%- if mf.feature_title != blank -%}<h2 style="font-size:clamp(26px,4vw,40px);">{{ mf.feature_title }}</h2>{%- endif -%}
+        {%- if mf.feature_sub != blank -%}<p class="lede measure" style="margin-inline:auto">{{ mf.feature_sub }}</p>{%- endif -%}
+      </div>
+      <div class="wave-band reveal" style="margin-top:28px;">
+        {%- assign flines = mf.features.value | newline_to_br | split: '<br />' -%}
+        {%- for line in flines -%}{%- assign fp = line | strip | split: '|' -%}{%- if fp.size > 2 -%}
+        <div class="cell">
+          <div class="nm">{{ fp[0] | strip }}<span>{{ fp[1] | strip }}</span></div>
+          <h4>{{ fp[2] | strip }}</h4>
+          <p>{{ fp[3] | strip }}</p>
         </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
+        {%- endif -%}{%- endfor -%}
+      </div>
+      {%- endif -%}
+    {%- else -%}
+      {%- comment -%} Homepage / generic: render from section blocks {%- endcomment -%}
+      <div class="section-head center head reveal">
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+        {%- if section.settings.lede != blank -%}<p class="lede measure" style="margin-inline:auto">{{ section.settings.lede }}</p>{%- endif -%}
+      </div>
+      <div class="bene-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'benefit' -%}
+          <div class="bene-card reveal" {{ block.shopify_attributes }}>
+            <span class="ic">{% render 'icon', name: block.settings.icon, size: 26 %}</span>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="wave-band reveal" style="margin-top:52px;">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'wavelength' -%}
+          <div class="cell" {{ block.shopify_attributes }}>
+            <div class="nm">{{ block.settings.value }}<span>{{ block.settings.unit }}</span></div>
+            <h4>{{ block.settings.title }}</h4>
+            <p>{{ block.settings.text }}</p>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   </div>
 </section>
 {% schema %}

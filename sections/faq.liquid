@@ -4,13 +4,29 @@
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
       <h2>{{ section.settings.heading }}</h2>
     </div>
+    {%- liquid
+      assign faqs = blank
+      if product != blank and product.metafields.custom.faqs != blank
+        assign faqs = product.metafields.custom.faqs.value
+      endif
+    -%}
     <div class="reveal">
-      {%- for block in section.blocks -%}
-        <div class="acc-item" {{ block.shopify_attributes }}>
-          <button class="acc-q" type="button">{{ block.settings.question }}<span class="ico"></span></button>
-          <div class="acc-a"><div class="inner">{{ block.settings.answer }}</div></div>
-        </div>
-      {%- endfor -%}
+      {%- if faqs != blank -%}
+        {%- assign qlines = faqs | newline_to_br | split: '<br />' -%}
+        {%- for line in qlines -%}{%- assign qp = line | strip | split: '|' -%}{%- if qp.size > 1 -%}
+          <div class="acc-item">
+            <button class="acc-q" type="button">{{ qp[0] | strip }}<span class="ico"></span></button>
+            <div class="acc-a"><div class="inner">{{ qp[1] | strip }}</div></div>
+          </div>
+        {%- endif -%}{%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          <div class="acc-item" {{ block.shopify_attributes }}>
+            <button class="acc-q" type="button">{{ block.settings.question }}<span class="ico"></span></button>
+            <div class="acc-a"><div class="inner">{{ block.settings.answer }}</div></div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
 </section>

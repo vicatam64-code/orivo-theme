@@ -1,10 +1,23 @@
+{%- liquid
+  assign steps = blank
+  if product != blank and product.metafields.custom.how_steps != blank
+    assign steps = product.metafields.custom.how_steps.value
+  endif
+-%}
 <section class="section how-it-works-section">
   <div class="wrap">
     <div class="sec-head reveal"><p class="eyebrow">{{ section.settings.eyebrow }}</p><h2>{{ section.settings.heading }}</h2></div>
     <div class="lux-how">
-      {%- for block in section.blocks -%}
-        <div class="step reveal" {{ block.shopify_attributes }}><div class="n">{{ block.settings.number }}</div><h4>{{ block.settings.title }}</h4><p>{{ block.settings.text }}</p></div>
-      {%- endfor -%}
+      {%- if steps != blank -%}
+        {%- assign slines = steps | newline_to_br | split: '<br />' -%}
+        {%- for line in slines -%}{%- assign sp = line | strip | split: '|' -%}{%- if sp.size > 1 -%}
+          <div class="step reveal"><div class="n">{{ sp[0] | strip }}</div><h4>{{ sp[1] | strip }}</h4><p>{{ sp[2] | strip }}</p></div>
+        {%- endif -%}{%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          <div class="step reveal" {{ block.shopify_attributes }}><div class="n">{{ block.settings.number }}</div><h4>{{ block.settings.title }}</h4><p>{{ block.settings.text }}</p></div>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
 </section>
