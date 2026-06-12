@@ -38,6 +38,27 @@
     <h1>{{ p.title }}</h1>
     {%- if sub != blank -%}<p class="lede" style="margin-top:6px;">{{ sub }}</p>{%- endif -%}
     <div class="rate-row"><span class="stars">★★★★★</span> {{ rating }}{% if reviews != 0 %} · <a href="#reviews" class="link-underline">{{ reviews }} reviews</a>{% endif %}</div>
+
+    {%- liquid
+      assign sp_check = '<svg class="sp-check" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="#1d9bf0" d="M12 1.6 14.3 4l3.2-.5 1 3.1 3 1.3-.6 3.2 2 2.5-2 2.5.6 3.2-3 1.3-1 3.1-3.2-.5L12 26l-2.3-2.4-3.2.5-1-3.1-3-1.3.6-3.2-2-2.5 2-2.5-.6-3.2 3-1.3 1-3.1 3.2.5z"/><path fill="#fff" d="m10.6 15-2.4-2.4 1.2-1.2 1.2 1.2 3.3-3.3 1.2 1.2z"/></svg>'
+    -%}
+    <div class="social-proof reveal">
+      <div class="sp-avatars">
+        {%- for n in (1..3) -%}
+          {%- assign akey = 'avatar_' | append: n -%}
+          {%- assign aimg = section.settings[akey] -%}
+          <span class="sp-av sp-av{{ n }}">
+            {%- if aimg != blank -%}<img src="{{ aimg | image_url: width: 120 }}" alt="" width="60" height="60" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            {%- else -%}<span class="orivo-ph" style="border-radius:50%;min-height:0;width:100%;height:100%;font-size:10px;">Photo</span>{%- endif -%}
+          </span>
+        {%- endfor -%}
+      </div>
+      <div class="sp-body">
+        <div class="sp-names"><b>{{ section.settings.social_name_1 | default: 'Lerato' }}</b>{{ sp_check }}<span class="sp-and">and</span><b>{{ section.settings.social_name_2 | default: 'Aisha' }}</b>{{ sp_check }}</div>
+        <div class="sp-sub">and <b>{{ section.settings.social_count | default: '10000+' }}</b> {{ section.settings.social_text | default: 'others love our products!' }}</div>
+      </div>
+    </div>
+
     <div class="lux-stock"><span class="stock-dot"></span>Limited Stock — Order Now</div>
 
     {%- form 'product', p, id: 'product-form', class: 'lux-form' -%}
@@ -68,7 +89,8 @@
       </div>
       <div class="lux-checkout">
         <button type="button" class="btn btn-primary btn-lg" data-add data-buy-now data-variant-id="{{ cur.id }}" data-qty="1"><span data-add-label>Buy It Now</span></button>
-        <p class="checkout-note">{% render 'icon', name: 'lock', size: 14 %} Secure Checkout</p>
+        <p class="checkout-note">{% render 'icon', name: 'lock', size: 14 %} {{ section.settings.checkout_label | default: 'Secure Checkout with Paystack' }}</p>
+        {% render 'payment-badges' %}
       </div>
     {%- endform -%}
 
@@ -90,6 +112,16 @@
   <div class="ti"><span class="ic">{% render 'icon', name: 'chat', size: 22 %}</span><div><b>Local support</b><small>Johannesburg team</small></div></div>
 </div></div></section>
 
+<div class="lux-sticky" data-sticky-atc>
+  <div class="sticky-thumb">
+    {%- if p.featured_media -%}<img src="{{ p.featured_media | image_url: width: 96 }}" alt="{{ p.title | escape }}" width="48" height="48" style="width:48px;height:48px;object-fit:cover;border-radius:10px;">
+    {%- else -%}<div class="orivo-ph" style="width:48px;height:48px;min-height:0;border-radius:10px;font-size:9px;">{{ p.title | truncate: 8 }}</div>{%- endif -%}
+  </div>
+  <div class="meta"><b>{{ p.title }}</b>{% if sub != blank %}<span class="sub2">{{ sub }}</span>{% endif %}</div>
+  <span class="sticky-price" data-sticky-price>{{ cur.price | money }}</span>
+  <button type="button" class="btn btn-accent" data-add data-variant-id="{{ cur.id }}" data-qty="1"><span data-add-label>Add to cart</span></button>
+</div>
+
 <script>
 (function(){
   var form=document.getElementById('product-form'); if(!form) return;
@@ -104,12 +136,22 @@
     if(!v) return;
     variantSel.value=v.id;
     var money=(v.price/100).toLocaleString('en-ZA',{style:'currency',currency:'{{ cart.currency.iso_code }}'});
-    var nowEl=form.querySelector('[data-price-now]'); if(nowEl) nowEl.textContent=money;
-    form.querySelectorAll('[data-add]').forEach(function(b){ b.setAttribute('data-variant-id', v.id); });
-    var lbl=form.querySelector('.btn-accent [data-add-label]'); if(lbl) lbl.textContent='Add to cart — '+money;
+    document.querySelectorAll('[data-price-now]').forEach(function(n){ n.textContent=money; });
+    var sp=document.querySelector('[data-sticky-price]'); if(sp) sp.textContent=money;
+    document.querySelectorAll('[data-add]').forEach(function(b){ b.setAttribute('data-variant-id', v.id); });
+    var lbl=form.querySelector('.lux-buy .btn-accent [data-add-label]'); if(lbl) lbl.textContent='Add to cart — '+money;
   }
   optSelects.forEach(function(s){ s.addEventListener('change', update); });
   update();
+
+  /* Sticky add-to-cart: reveal once the main buy button scrolls out of view */
+  var sticky=document.querySelector('[data-sticky-atc]');
+  var anchor=document.querySelector('.lux-buy');
+  if(sticky && anchor && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){
+      sticky.classList.toggle('show', !entries[0].isIntersecting);
+    }, { rootMargin:'0px 0px -40px 0px' }).observe(anchor);
+  }
 })();
 </script>
 
@@ -117,6 +159,16 @@
 {
   "name": "Product buy box",
   "settings": [
+    { "type": "header", "content": "Social proof bubble" },
+    { "type": "image_picker", "id": "avatar_1", "label": "Avatar 1" },
+    { "type": "image_picker", "id": "avatar_2", "label": "Avatar 2" },
+    { "type": "image_picker", "id": "avatar_3", "label": "Avatar 3" },
+    { "type": "text", "id": "social_name_1", "label": "Name 1", "default": "Lerato" },
+    { "type": "text", "id": "social_name_2", "label": "Name 2", "default": "Aisha" },
+    { "type": "text", "id": "social_count", "label": "Count", "default": "10000+" },
+    { "type": "text", "id": "social_text", "label": "Trailing text", "default": "others love our products!" },
+    { "type": "header", "content": "Checkout & shipping" },
+    { "type": "text", "id": "checkout_label", "label": "Secure checkout label", "default": "Secure Checkout with Paystack" },
     { "type": "textarea", "id": "highlights", "label": "Highlights (one per line; used if no product metafield)", "default": "Red 630nm · Deep red 660nm · Near-infrared 850nm\n7 light modes for skin, calm & recovery\nCordless, lightweight & skin-safe (no UV)\nJust 10 minutes a day" },
     { "type": "text", "id": "shipping_note", "label": "Shipping note", "default": "Ships door-to-door in 7–14 days · Free over R750" }
   ],
