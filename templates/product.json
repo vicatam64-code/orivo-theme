@@ -12,6 +12,7 @@
     "main": {
       "type": "main-product",
       "settings": {
+        "avatar_1": "shopify://shop_images/Screenshot_2026-06-12_at_23.24.18.png",
         "avatar_2": "shopify://shop_images/Image_19.jpg",
         "avatar_3": "shopify://shop_images/IMG_4302.jpg",
         "social_name_1": "Lerato",
