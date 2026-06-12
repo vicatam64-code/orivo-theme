@@ -1,0 +1,38 @@
+<section class="section" id="faq">
+  <div class="wrap" style="max-width:880px;">
+    <div class="section-head center reveal" style="margin-bottom:40px;">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="reveal">
+      {%- for block in section.blocks -%}
+        <div class="acc-item" {{ block.shopify_attributes }}>
+          <button class="acc-q" type="button">{{ block.settings.question }}<span class="ico"></span></button>
+          <div class="acc-a"><div class="inner">{{ block.settings.answer }}</div></div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Good to know" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions, answered" }
+  ],
+  "blocks": [
+    { "type": "qa", "name": "Q&A", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "How long until I see results?" },
+      { "type": "textarea", "id": "answer", "label": "Answer", "default": "Everyone's skin is different. With consistent use, many people notice their skin looks calmer and more radiant within a few weeks." }
+    ]}
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "FAQ", "blocks": [
+    {"type":"qa","settings":{"question":"How long until I see results?","answer":"Everyone's skin is different. With consistent use — around 10 minutes a day, most evenings — many people notice their skin looks calmer and more radiant within a few weeks. Light therapy is a gradual, supportive ritual rather than an overnight fix."}},
+    {"type":"qa","settings":{"question":"Is it safe to use at home?","answer":"Our devices use skin-safe LED wavelengths and contain no UV. They're designed for comfortable daily use at home. As with any wellness device, follow the included guide, and check with your doctor if you're pregnant, on photosensitising medication, or have a skin condition."}},
+    {"type":"qa","settings":{"question":"How long does delivery take?","answer":"We deliver door-to-door across South Africa, typically within 7–14 days. Orders over R750 ship free, and you'll get tracking the whole way."}},
+    {"type":"qa","settings":{"question":"What if it's not for me?","answer":"You have a 60-night home trial. If you're not glowing, contact our team and we'll arrange a return and refund — no awkward questions."}}
+  ]}]
+}
+{% endschema %}

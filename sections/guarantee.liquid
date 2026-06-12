@@ -1,0 +1,41 @@
+<section class="section bg-ink guarantee">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-bottom:60px;">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="color:var(--tan)">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 style="color:var(--cream)">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="grid">
+      {%- for block in section.blocks -%}
+        <div class="g reveal" {{ block.shopify_attributes }}>
+          <span class="ic">{% render 'icon', name: block.settings.icon, size: 26 %}</span>
+          <h4>{{ block.settings.title }}</h4>
+          <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Guarantee",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Orivo promise" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Try it, love it — or send it back" }
+  ],
+  "blocks": [
+    { "type": "promise", "name": "Promise", "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "shield",
+        "options": [{"value":"shield","label":"Shield"},{"value":"clock","label":"Clock"},{"value":"truck","label":"Truck"},{"value":"chat","label":"Chat"}] },
+      { "type": "text", "id": "title", "label": "Title", "default": "60-night trial" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Take two months. If it's not for you, we'll refund you." }
+    ]}
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Guarantee", "blocks": [
+    {"type":"promise","settings":{"icon":"shield","title":"60-night trial","text":"Take two months. If it's not for you, we'll refund you."}},
+    {"type":"promise","settings":{"icon":"clock","title":"2-year warranty","text":"Every device is covered against defects for two full years."}},
+    {"type":"promise","settings":{"icon":"truck","title":"SA-wide delivery","text":"Door-to-door in 7–14 days, tracked the whole way."}},
+    {"type":"promise","settings":{"icon":"chat","title":"Local support","text":"A friendly Cape Town team, ready to help by email or WhatsApp."}}
+  ]}]
+}
+{% endschema %}

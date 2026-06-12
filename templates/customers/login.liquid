@@ -1,0 +1,9 @@
+<section class="section"><div class="wrap" style="max-width:440px;">
+  <h1 style="font-family:var(--font-display);font-weight:600;font-size:34px;margin-bottom:20px;">Login</h1>
+  {%- form 'customer_login' -%}
+    <div class="field"><label>Email</label><input type="email" name="customer[email]" required></div>
+    <div class="field"><label>Password</label><input type="password" name="customer[password]"></div>
+    <button type="submit" class="btn btn-accent btn-lg btn-block" style="margin-top:12px;">Sign in</button>
+  {%- endform -%}
+  <p style="margin-top:16px;"><a href="{{ routes.account_register_url }}" class="link-underline">Create account</a></p>
+</div></section>

@@ -1,0 +1,59 @@
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="{{ routes.root_url }}">{{ section.settings.brand_name | default: 'Orivo' }}<span class="reg">&reg;</span></a>
+        <p>{{ section.settings.tagline }}</p>
+      </div>
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <h4>{{ block.settings.heading }}</h4>
+          {%- assign lines = block.settings.links | newline_to_br | split: '<br />' -%}
+          {%- for line in lines -%}
+            {%- assign parts = line | strip | split: '|' -%}
+            {%- if parts.size > 1 -%}
+              <a href="{{ parts[1] | strip }}">{{ parts[0] | strip }}</a>
+            {%- elsif parts[0] != blank -%}
+              <a href="#">{{ parts[0] | strip }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="footer-bottom">
+      <span>{{ section.settings.legal }}</span>
+      <div class="pay"><span>VISA</span><span>MC</span><span>EFT</span><span>PayFast</span></div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Orivo" },
+    { "type": "textarea", "id": "tagline", "label": "Tagline", "default": "Light-powered skin & wellness rituals, designed in Johannesburg for the way South Africans actually live." },
+    { "type": "text", "id": "legal", "label": "Legal line", "default": "© 2026 Orivo. All rights reserved. Wellness device — not intended to diagnose or treat any condition." }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Link column",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "textarea", "id": "links", "label": "Links (one per line, format: Label | /url)", "default": "Shop All | /collections/all\nContact us | /pages/contact\nFAQ | /#faq" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        { "type": "column", "settings": { "heading": "Shop", "links": "LED Photon Mask | /collections/all\nLumi Sculpt | /collections/all\nRestore Cup | /collections/all\nAlignPro | /collections/all" } },
+        { "type": "column", "settings": { "heading": "Support", "links": "Contact us | /pages/contact\nFAQ | /#faq\nShipping & returns | #\nWarranty | #" } },
+        { "type": "column", "settings": { "heading": "Company", "links": "Our story | /#story\nThe science | /#science" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

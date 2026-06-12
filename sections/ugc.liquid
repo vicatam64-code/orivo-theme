@@ -1,0 +1,28 @@
+<section class="section-sm">
+  <div class="wrap">
+    <div class="kicker-row reveal" style="margin-bottom:26px;">
+      <span class="eyebrow muted">{{ section.settings.handle_label }}</span><span class="ln"></span>
+      <a href="{{ section.settings.link | default: '#' }}" class="btn btn-ghost link-underline">{{ section.settings.link_label | default: 'Follow along →' }}</a>
+    </div>
+    <div class="ugc-grid reveal">
+      {%- for block in section.blocks -%}
+        {% render 'image-slot', image: block.settings.image, placeholder: 'UGC', radius: 14 %}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Social proof / UGC",
+  "settings": [
+    { "type": "text", "id": "handle_label", "label": "Handle", "default": "@orivo.glow" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Follow along →" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "blocks": [ { "type": "photo", "name": "Photo", "settings": [ { "type": "image_picker", "id": "image", "label": "Image" } ] } ],
+  "max_blocks": 12,
+  "presets": [{ "name": "Social proof / UGC", "blocks": [
+    {"type":"photo"},{"type":"photo"},{"type":"photo"},{"type":"photo"},{"type":"photo"},{"type":"photo"}
+  ]}]
+}
+{% endschema %}

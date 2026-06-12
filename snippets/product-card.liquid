@@ -1,0 +1,34 @@
+{%- comment -%} Full product card matching source .product-card. Param: product {%- endcomment -%}
+{%- liquid
+  assign p = product
+  assign sub = p.metafields.custom.subtitle
+  assign badge = p.metafields.custom.badge
+  assign rating = p.metafields.custom.rating | default: 4.7
+  assign reviews = p.metafields.custom.review_count | default: 0
+  assign on_sale = false
+  if p.compare_at_price > p.price
+    assign on_sale = true
+    assign save = p.compare_at_price | minus: p.price
+  endif
+-%}
+<article class="product-card reveal">
+  <div class="media">
+    <div class="card-badges">{% if badge != blank %}<span class="pill pill-sale">{{ badge }}</span>{% elsif on_sale %}<span class="pill pill-sale">Sale</span>{% endif %}</div>
+    <a href="{{ p.url }}" aria-label="{{ p.title | escape }}">
+      {%- if p.featured_media -%}
+        <img src="{{ p.featured_media | image_url: width: 800 }}" alt="{{ p.featured_media.alt | escape | default: p.title }}" loading="lazy" decoding="async" width="800" height="800" style="width:100%;height:100%;object-fit:cover;border-radius:18px;display:block;">
+      {%- else -%}
+        <div class="orivo-ph" style="border-radius:18px;aspect-ratio:1/1;"><span>{{ p.title }}</span></div>
+      {%- endif -%}
+    </a>
+    <div class="quickadd">
+      <button class="btn btn-primary btn-block" data-add data-qty="1" data-variant-id="{{ p.selected_or_first_available_variant.id }}"><span data-add-label>Quick add</span></button>
+    </div>
+  </div>
+  <a href="{{ p.url }}" class="info">
+    <span class="rate"><span class="stars">★★★★★</span> {{ rating }}{% if reviews != 0 %} · {{ reviews }} reviews{% endif %}</span>
+    <span class="title">{{ p.title }}</span>
+    {%- if sub != blank -%}<span style="color:var(--ink-soft); font-size:14.5px;">{{ sub }}</span>{%- endif -%}
+    <span class="price-row"><span class="price">{{ p.price | money }}</span>{% if on_sale %}<span class="was">{{ p.compare_at_price | money }}</span><span class="save">Save {{ save | money }}</span>{% endif %}</span>
+  </a>
+</article>

@@ -1,0 +1,51 @@
+<section class="col-hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">{{ section.settings.eyebrow | default: collection.title }} · {{ collection.products_count }} devices</p>
+    <h1 class="reveal">{{ section.settings.heading | default: collection.title }}</h1>
+    {%- if section.settings.intro != blank -%}<p class="lede reveal">{{ section.settings.intro }}</p>
+    {%- elsif collection.description != blank -%}<p class="lede reveal">{{ collection.description }}</p>{%- endif -%}
+  </div>
+</section>
+
+<section class="section" style="padding-top:8px;">
+  <div class="wrap">
+    <div class="col-bar reveal">
+      <div class="sort" style="margin-left:auto;">
+        <span>Sort</span>
+        <select aria-label="Sort products" onchange="if(this.value)window.location.href=this.value;">
+          <option value="?sort_by=manual">Featured</option>
+          <option value="?sort_by=price-ascending">Price: low to high</option>
+          <option value="?sort_by=price-descending">Price: high to low</option>
+          <option value="?sort_by=best-selling">Top rated</option>
+        </select>
+      </div>
+    </div>
+    <div class="prod-grid">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+      {%- else -%}
+        <p class="orivo-ph" style="grid-column:1/-1;">No products in this collection yet.</p>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<section class="section-sm bg-deep">
+  <div class="wrap">
+    <div class="reassure reveal">
+      <div class="r"><span class="ic">{% render 'icon', name: 'shield', size: 22 %}</span><div><h4>60-night trial</h4><p>Try any device for two months, risk-free.</p></div></div>
+      <div class="r"><span class="ic">{% render 'icon', name: 'truck', size: 22 %}</span><div><h4>7–14 day delivery</h4><p>Door-to-door across South Africa, fully tracked.</p></div></div>
+      <div class="r"><span class="ic">{% render 'icon', name: 'clock', size: 22 %}</span><div><h4>2-year warranty</h4><p>Backed by a friendly, locally-based support team.</p></div></div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The collection" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop the light ritual" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Four considered devices, each designed to slip into your routine and help support skin, recovery and everyday calm — with consistent use." }
+  ]
+}
+{% endschema %}

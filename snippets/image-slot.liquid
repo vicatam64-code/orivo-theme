@@ -1,0 +1,20 @@
+{%- comment -%} Renders an image_picker image, or a styled placeholder when unset.
+  Params: image, placeholder, radius, class, ratio {%- endcomment -%}
+{%- liquid
+  assign r = radius | default: 18
+  assign ph = placeholder | default: 'Add image'
+  assign extra = class | default: ''
+  assign ar = ratio | default: ''
+-%}
+{%- if image != blank -%}
+  <img class="orivo-img {{ extra }}" src="{{ image | image_url: width: 1400 }}"
+       srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 1000 }} 1000w, {{ image | image_url: width: 1600 }} 1600w"
+       sizes="100vw" alt="{{ image.alt | escape | default: ph }}"
+       loading="lazy" decoding="async"
+       width="{{ image.width }}" height="{{ image.height }}"
+       style="width:100%;height:100%;object-fit:cover;border-radius:{{ r }}px;display:block;{% if ar != blank %}aspect-ratio:{{ ar }};{% endif %}">
+{%- else -%}
+  <div class="orivo-ph {{ extra }}" style="border-radius:{{ r }}px;{% if ar != blank %}aspect-ratio:{{ ar }};{% endif %}">
+    <span>{{ ph }}</span>
+  </div>
+{%- endif -%}

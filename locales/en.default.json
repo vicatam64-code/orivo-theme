@@ -1,0 +1,10 @@
+{
+  "general": {
+    "search": { "search": "Search" },
+    "cart": { "title": "Cart", "view": "View cart", "checkout": "Checkout", "empty": "Your cart is empty" },
+    "404": { "title": "Page not found", "subtext": "The page you were looking for does not exist." }
+  },
+  "products": {
+    "product": { "add_to_cart": "Add to cart", "sold_out": "Sold out", "regular_price": "Regular price", "sale_price": "Sale price" }
+  }
+}

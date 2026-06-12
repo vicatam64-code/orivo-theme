@@ -1,0 +1,125 @@
+{%- liquid
+  assign p = product
+  assign cur = p.selected_or_first_available_variant
+  assign sub = p.metafields.custom.subtitle
+  assign rating = p.metafields.custom.rating | default: 4.6
+  assign reviews = p.metafields.custom.review_count | default: 0
+  assign ship = p.metafields.custom.shipping_note | default: section.settings.shipping_note
+-%}
+<section class="lux-product-hero lux-product-page"><div class="wrap"><div class="grid">
+  <div class="lux-gallery" data-gallery>
+    <div class="g-stage">
+      {%- if p.media.size > 0 -%}
+        {%- for media in p.media -%}
+          <img data-main-img class="main" src="{{ media | image_url: width: 1400 }}" alt="{{ media.alt | escape | default: p.title }}" {% if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %} width="1400" height="1400" style="{% unless forloop.first %}display:none;{% endunless %}width:100%;border-radius:22px;object-fit:cover;">
+        {%- endfor -%}
+      {%- else -%}
+        <div data-main-img class="main orivo-ph" style="border-radius:22px;aspect-ratio:1/1;"><span>{{ p.title }}</span></div>
+      {%- endif -%}
+      {%- if p.media.size > 1 -%}
+        <button type="button" class="g-nav g-prev" data-step-img="-1" aria-label="Previous image"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+        <button type="button" class="g-nav g-next" data-step-img="1" aria-label="Next image"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+        <div class="g-dots" role="tablist" aria-label="Product images">
+          {%- for media in p.media -%}<button type="button" class="g-dot{% if forloop.first %} on{% endif %}" data-go="{{ forloop.index0 }}" aria-label="Go to image {{ forloop.index }}"></button>{%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if p.media.size > 1 -%}
+    <div class="thumbs">
+      {%- for media in p.media -%}
+        <button type="button" class="g-thumb{% if forloop.first %} on{% endif %}" data-go="{{ forloop.index0 }}" aria-label="View image {{ forloop.index }}"><img src="{{ media | image_url: width: 200 }}" alt="" loading="lazy" width="200" height="200" style="width:100%;height:100%;object-fit:cover;border-radius:10px;"></button>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  </div>
+
+  <div class="lux-info">
+    <div class="crumbs"><a href="{{ routes.root_url }}">Home</a><span>/</span><a href="{{ routes.all_products_collection_url }}">Shop</a><span>/</span><span>{{ p.title }}</span></div>
+    <h1>{{ p.title }}</h1>
+    {%- if sub != blank -%}<p class="lede" style="margin-top:6px;">{{ sub }}</p>{%- endif -%}
+    <div class="rate-row"><span class="stars">★★★★★</span> {{ rating }}{% if reviews != 0 %} · <a href="#reviews" class="link-underline">{{ reviews }} reviews</a>{% endif %}</div>
+    <div class="lux-stock"><span class="stock-dot"></span>Limited Stock — Order Now</div>
+
+    {%- form 'product', p, id: 'product-form', class: 'lux-form' -%}
+      {%- unless p.has_only_default_variant -%}
+        <div class="lux-variants">
+          {%- for option in p.options_with_values -%}
+            <label class="opt-label">{{ option.name }}</label>
+            <select class="opt-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ option.name }}">
+              {%- for value in option.values -%}<option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>{%- endfor -%}
+            </select>
+          {%- endfor -%}
+        </div>
+      {%- endunless -%}
+      <select name="id" id="variant-id" class="visually-hidden" style="display:none;">
+        {%- for v in p.variants -%}
+          <option value="{{ v.id }}"{% if v == cur %} selected{% endif %} data-price="{{ v.price | money }}" {% unless v.available %}disabled{% endunless %}>{{ v.title }}</option>
+        {%- endfor -%}
+      </select>
+
+      <div class="lux-price">
+        <span class="now" data-price-now>{{ cur.price | money }}</span>
+        {%- if cur.compare_at_price > cur.price -%}<span class="was">{{ cur.compare_at_price | money }}</span><span class="pill save">You save {{ cur.compare_at_price | minus: cur.price | money }}</span>{%- endif -%}
+      </div>
+
+      <div class="lux-buy" data-qty-wrap>
+        <div class="lux-qty"><button type="button" data-step="-1" aria-label="Decrease">−</button><input value="1" inputmode="numeric" aria-label="Quantity"><button type="button" data-step="1" aria-label="Increase">+</button></div>
+        <button type="button" class="btn btn-accent btn-lg" data-add data-variant-id="{{ cur.id }}" data-qty="1"><span data-add-label>Add to cart — {{ cur.price | money }}</span></button>
+      </div>
+      <div class="lux-checkout">
+        <button type="button" class="btn btn-primary btn-lg" data-add data-buy-now data-variant-id="{{ cur.id }}" data-qty="1"><span data-add-label>Buy It Now</span></button>
+        <p class="checkout-note">{% render 'icon', name: 'lock', size: 14 %} Secure Checkout</p>
+      </div>
+    {%- endform -%}
+
+    {%- assign hi = p.metafields.custom.highlights.value | default: section.settings.highlights -%}
+    {%- if hi != blank -%}
+      <ul class="lux-highlights">
+        {%- assign lines = hi | newline_to_br | split: '<br />' -%}
+        {%- for line in lines -%}{%- assign t = line | strip -%}{%- if t != '' -%}<li><span class="ck">{% render 'icon', name: 'check', size: 13 %}</span>{{ t }}</li>{%- endif -%}{%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if ship != blank -%}<div class="lux-ship">{% render 'icon', name: 'truck', size: 18 %}<span>{{ ship }}</span></div>{%- endif -%}
+  </div>
+</div></div></section>
+
+<section class="lux-trust"><div class="wrap"><div class="row">
+  <div class="ti"><span class="ic">{% render 'icon', name: 'shield', size: 22 %}</span><div><b>60-night trial</b><small>Love it or return it</small></div></div>
+  <div class="ti"><span class="ic">{% render 'icon', name: 'truck', size: 22 %}</span><div><b>7–14 day delivery</b><small>Door-to-door, SA-wide</small></div></div>
+  <div class="ti"><span class="ic">{% render 'icon', name: 'clock', size: 22 %}</span><div><b>2-year warranty</b><small>Quality guaranteed</small></div></div>
+  <div class="ti"><span class="ic">{% render 'icon', name: 'chat', size: 22 %}</span><div><b>Local support</b><small>Johannesburg team</small></div></div>
+</div></div></section>
+
+<script>
+(function(){
+  var form=document.getElementById('product-form'); if(!form) return;
+  var variantSel=form.querySelector('#variant-id');
+  var optSelects=form.querySelectorAll('.opt-select');
+  var variants={{ p.variants | json }};
+  function currentTitle(){ return Array.prototype.map.call(optSelects,function(s){return s.value;}).join(' / '); }
+  function update(){
+    var v;
+    if(optSelects.length){ var title=currentTitle(); v=variants.filter(function(x){return x.title===title;})[0]; }
+    else { v=variants[0]; }
+    if(!v) return;
+    variantSel.value=v.id;
+    var money=(v.price/100).toLocaleString('en-ZA',{style:'currency',currency:'{{ cart.currency.iso_code }}'});
+    var nowEl=form.querySelector('[data-price-now]'); if(nowEl) nowEl.textContent=money;
+    form.querySelectorAll('[data-add]').forEach(function(b){ b.setAttribute('data-variant-id', v.id); });
+    var lbl=form.querySelector('.btn-accent [data-add-label]'); if(lbl) lbl.textContent='Add to cart — '+money;
+  }
+  optSelects.forEach(function(s){ s.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Product buy box",
+  "settings": [
+    { "type": "textarea", "id": "highlights", "label": "Highlights (one per line; used if no product metafield)", "default": "Red 630nm · Deep red 660nm · Near-infrared 850nm\n7 light modes for skin, calm & recovery\nCordless, lightweight & skin-safe (no UV)\nJust 10 minutes a day" },
+    { "type": "text", "id": "shipping_note", "label": "Shipping note", "default": "Ships door-to-door in 7–14 days · Free over R750" }
+  ],
+  "presets": [{ "name": "Product buy box" }]
+}
+{% endschema %}

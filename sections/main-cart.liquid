@@ -1,0 +1,26 @@
+<section class="section"><div class="wrap" style="max-width:980px;">
+  <div class="section-head reveal" style="margin-bottom:30px;"><h1 style="font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,52px);">Your cart</h1></div>
+  {%- if cart.item_count > 0 -%}
+    {%- form 'cart', cart -%}
+      <div class="cart-items">
+        {%- for item in cart.items -%}
+          <div class="cart-row" style="display:grid;grid-template-columns:90px 1fr auto;gap:18px;align-items:center;padding:18px 0;border-bottom:1px solid var(--line-soft);">
+            <a href="{{ item.url }}">{% if item.image %}<img src="{{ item.image | image_url: width: 180 }}" alt="{{ item.title | escape }}" width="90" height="90" style="width:90px;height:90px;object-fit:cover;border-radius:12px;">{% endif %}</a>
+            <div><a href="{{ item.url }}" style="font-weight:600;color:var(--ink);text-decoration:none;">{{ item.product.title }}</a>{% unless item.variant.title contains 'Default' %}<div style="color:var(--ink-faint);font-size:14px;">{{ item.variant.title }}</div>{% endunless %}
+              <div style="margin-top:8px;"><input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantity" style="width:64px;padding:6px;border:1px solid var(--line);border-radius:8px;"> <a href="{{ item.url_to_remove }}" style="color:var(--ink-faint);font-size:13px;margin-left:10px;">Remove</a></div>
+            </div>
+            <div style="font-weight:600;">{{ item.final_line_price | money }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:18px;flex-wrap:wrap;">
+        <button type="submit" name="update" class="btn btn-outline">Update cart</button>
+        <div style="text-align:right;"><div style="color:var(--ink-faint);font-size:14px;">Subtotal</div><div style="font-family:var(--font-display);font-size:30px;font-weight:600;">{{ cart.total_price | money }}</div></div>
+      </div>
+      <button type="submit" name="checkout" class="btn btn-accent btn-lg btn-block" style="margin-top:18px;">Checkout</button>
+    {%- endform -%}
+  {%- else -%}
+    <p class="lede">Your cart is empty. <a href="{{ routes.all_products_collection_url }}" class="link-underline">Shop the collection →</a></p>
+  {%- endif -%}
+</div></section>
+{% schema %}{ "name": "Cart" }{% endschema %}

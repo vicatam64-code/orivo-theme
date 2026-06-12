@@ -1,0 +1,20 @@
+{%- comment -%} Inline SVG icon set. Params: name, size {%- endcomment -%}
+{%- assign s = size | default: 22 -%}
+<svg width="{{ s }}" height="{{ s }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{%- case name -%}
+{%- when 'sun' -%}<path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 3v9l6 2"/>
+{%- when 'heart' -%}<path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10Z"/>
+{%- when 'leaf' -%}<path d="M5 21c0-9 6-15 15-15 0 9-6 15-15 15Z"/><path d="M5 21c4-4 7-6 11-8"/>
+{%- when 'drop' -%}<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/>
+{%- when 'spine' -%}<path d="M12 3v18"/><path d="M9 6h6M8 10h8M9 14h6M10 18h4"/>
+{%- when 'shield' -%}<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/>
+{%- when 'truck' -%}<path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/>
+{%- when 'clock' -%}<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+{%- when 'chat' -%}<path d="M21 11.5a8.5 8.5 0 1 1-4.5-7.5L21 5"/><path d="M21 5v4h-4"/>
+{%- when 'check' -%}<path d="m5 12 5 5 9-11"/>
+{%- when 'beaker' -%}<path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/>
+{%- when 'award' -%}<circle cx="12" cy="9" r="6"/><path d="m9 14-2 7 5-3 5 3-2-7"/>
+{%- when 'lock' -%}<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+{%- else -%}<circle cx="12" cy="12" r="9"/>
+{%- endcase -%}
+</svg>

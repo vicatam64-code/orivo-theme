@@ -1,0 +1,11 @@
+<section class="section"><div class="wrap">
+  <div class="section-head reveal" style="margin-bottom:30px;"><h1 style="font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,54px);">{{ blog.title }}</h1></div>
+  <div class="bs-grid">
+    {%- for article in blog.articles -%}
+      <a href="{{ article.url }}" class="bs-card reveal">
+        <div class="bs-media">{% if article.image %}<img src="{{ article.image | image_url: width: 800 }}" alt="{{ article.title | escape }}" loading="lazy" width="800" height="800" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="orivo-ph"><span>{{ article.title }}</span></div>{% endif %}</div>
+        <div class="bs-meta">{{ article.title }}</div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div></section>

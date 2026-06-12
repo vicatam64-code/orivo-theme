@@ -1,0 +1,8 @@
+<section class="section"><div class="wrap" style="max-width:720px;">
+  <h1 style="font-family:var(--font-display);font-weight:600;font-size:30px;">Order {{ order.name }}</h1>
+  <p style="color:var(--ink-faint);">{{ order.created_at | date: '%B %-d, %Y' }}</p>
+  <table style="width:100%;margin-top:20px;border-collapse:collapse;">
+    {%- for line in order.line_items -%}<tr style="border-bottom:1px solid var(--line-soft);"><td style="padding:10px 0;">{{ line.title }} × {{ line.quantity }}</td><td style="text-align:right;">{{ line.final_line_price | money }}</td></tr>{%- endfor -%}
+    <tr><td style="padding:12px 0;font-weight:700;">Total</td><td style="text-align:right;font-weight:700;">{{ order.total_price | money }}</td></tr>
+  </table>
+</div></section>

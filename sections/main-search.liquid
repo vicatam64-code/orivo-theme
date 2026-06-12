@@ -1,0 +1,13 @@
+<section class="section"><div class="wrap">
+  <div class="section-head reveal" style="margin-bottom:24px;"><h1 style="font-family:var(--font-display);font-weight:600;font-size:clamp(30px,5vw,48px);">Search</h1></div>
+  <form action="{{ routes.search_url }}" method="get" role="search" style="margin-bottom:30px;">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search products…" aria-label="Search" style="width:100%;max-width:520px;padding:14px 18px;border:1px solid var(--line);border-radius:999px;">
+  </form>
+  {%- if search.performed -%}
+    <p class="lede" style="margin-bottom:24px;">{{ search.results_count }} result{{ search.results_count | pluralize: '', 's' }} for "{{ search.terms }}"</p>
+    <div class="prod-grid">
+      {%- for item in search.results -%}{%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}{%- endif -%}{%- endfor -%}
+    </div>
+  {%- endif -%}
+</div></section>
+{% schema %}{ "name": "Search" }{% endschema %}

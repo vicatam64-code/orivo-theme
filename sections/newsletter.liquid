@@ -1,0 +1,28 @@
+<section class="section-sm news bg-deep">
+  <div class="wrap" style="max-width:680px;">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow reveal">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="reveal" style="margin-top:14px;">{{ section.settings.heading }}</h2>
+    {%- form 'customer', class: 'reveal' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      {%- if form.posted_successfully? -%}
+        <p style="color:var(--tan);margin-top:10px;">Welcome to the ritual ✓</p>
+      {%- else -%}
+        <input type="email" name="contact[email]" placeholder="Your email address" required aria-label="Email">
+        <button type="submit" class="btn btn-primary">{{ section.settings.button | default: 'Sign up' }}</button>
+      {%- endif -%}
+    {%- endform -%}
+    <small class="reveal">{{ section.settings.note }}</small>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Join the ritual" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Stay in the glow" },
+    { "type": "text", "id": "button", "label": "Button", "default": "Sign up" },
+    { "type": "text", "id": "note", "label": "Note", "default": "No spam, just glow tips & the occasional offer. Unsubscribe anytime." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

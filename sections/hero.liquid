@@ -1,0 +1,35 @@
+<section class="hero hero-2 active" data-hero="2">
+  <div class="stage">
+    {%- if section.settings.image != blank -%}
+      <img src="{{ section.settings.image | image_url: width: 2400 }}" alt="{{ section.settings.image.alt | escape | default: section.settings.heading }}" loading="eager" fetchpriority="high" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+    {%- else -%}
+      <div class="orivo-ph" style="position:absolute;inset:0;border-radius:0;">{{ section.settings.placeholder | default: 'Add a full-bleed lifestyle image' }}</div>
+    {%- endif -%}
+    <div class="scrim"></div>
+    <div class="content">
+      <div class="inner">
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h1>{{ section.settings.heading }}</h1>
+        <div class="row">
+          <p>{{ section.settings.subheading }}</p>
+          {%- if section.settings.cta_label != blank -%}<a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="btn btn-accent btn-lg">{{ section.settings.cta_label }}</a>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder text", "default": "Add a full-bleed lifestyle image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Orivo Light Ritual" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Skin, restored by light." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Red & near-infrared wavelengths designed to complement your daily routine and support a healthy, luminous glow." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Discover the ritual" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

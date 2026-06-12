@@ -1,0 +1,27 @@
+<section class="section bg-deep">
+  <div class="wrap">
+    <div class="life-grid reveal">
+      <div class="a">{% render 'image-slot', image: section.settings.image_a, placeholder: 'Lifestyle — ritual at home', radius: 22 %}</div>
+      <div class="b">{% render 'image-slot', image: section.settings.image_b, placeholder: 'Lifestyle — close-up', radius: 22 %}</div>
+      <div class="c">{% render 'image-slot', image: section.settings.image_c, placeholder: 'Lifestyle — texture / detail', radius: 22 %}</div>
+    </div>
+    <div class="life-cap reveal">
+      <h2 class="display" style="font-size:clamp(28px,4vw,46px); max-width:18ch;">{{ section.settings.caption }}</h2>
+      {%- if section.settings.cta_label != blank -%}<a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="btn btn-outline">{{ section.settings.cta_label }}</a>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Lifestyle imagery",
+  "settings": [
+    { "type": "image_picker", "id": "image_a", "label": "Image A" },
+    { "type": "image_picker", "id": "image_b", "label": "Image B" },
+    { "type": "image_picker", "id": "image_c", "label": "Image C" },
+    { "type": "text", "id": "caption", "label": "Caption", "default": "Made to fit the evenings you already love." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Find your device" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "presets": [{ "name": "Lifestyle imagery" }]
+}
+{% endschema %}

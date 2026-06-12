@@ -1,0 +1,298 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero"
+    },
+    "trust": {
+      "type": "trust-strip",
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "icon": "shield",
+            "text": "60-night home trial"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "icon": "truck",
+            "text": "Door-to-door delivery"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "icon": "clock",
+            "text": "2-year warranty"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "icon": "chat",
+            "text": "Locally supported"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "bestsellers": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "Best Sellers",
+        "limit": 4
+      }
+    },
+    "science": {
+      "type": "science",
+      "blocks": {
+        "be1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "sun",
+            "title": "Rejuvenation",
+            "text": "Helps support skin rejuvenation and a smoother-looking, more even complexion over time."
+          }
+        },
+        "be2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "heart",
+            "title": "Fine lines",
+            "text": "May improve the appearance of fine lines and help skin feel firmer and more supple."
+          }
+        },
+        "be3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "leaf",
+            "title": "Recovery & calm",
+            "text": "Supports recovery and overall wellness, helping you wind down and feel restored."
+          }
+        },
+        "wl1": {
+          "type": "wavelength",
+          "settings": {
+            "value": "630",
+            "unit": "nm",
+            "title": "Red light",
+            "text": "Targets the surface of the skin to help support a radiant, even-looking tone."
+          }
+        },
+        "wl2": {
+          "type": "wavelength",
+          "settings": {
+            "value": "660",
+            "unit": "nm",
+            "title": "Deep red",
+            "text": "Reaches a little deeper, designed to complement your skin's natural renewal."
+          }
+        },
+        "wl3": {
+          "type": "wavelength",
+          "settings": {
+            "value": "850",
+            "unit": "nm",
+            "title": "Near-infrared",
+            "text": "Penetrates further to support recovery, comfort and overall wellness."
+          }
+        }
+      },
+      "block_order": [
+        "be1",
+        "be2",
+        "be3",
+        "wl1",
+        "wl2",
+        "wl3"
+      ]
+    },
+    "lifestyle": {
+      "type": "lifestyle"
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "t1": {
+          "type": "review",
+          "settings": {
+            "quote": "Three weeks in and my skin honestly looks calmer and brighter. It's become my favourite part of winding down at night.",
+            "initials": "LM",
+            "name": "Lerato M.",
+            "location": "Sandton, GP",
+            "verified": true
+          }
+        },
+        "t2": {
+          "type": "review",
+          "settings": {
+            "quote": "Delivery took 9 days to Durban and the device feels premium. My fine lines around the eyes look softer.",
+            "initials": "TN",
+            "name": "Thandeka N.",
+            "location": "Durban, KZN",
+            "verified": true
+          }
+        },
+        "t3": {
+          "type": "review",
+          "settings": {
+            "quote": "Sceptical at first, but the routine is so relaxing I actually stick to it. Worth every Rand for the trial alone.",
+            "initials": "JR",
+            "name": "Johan v. Rensburg",
+            "location": "Stellenbosch, WC",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    "guarantee": {
+      "type": "guarantee",
+      "blocks": {
+        "g1": {
+          "type": "promise",
+          "settings": {
+            "icon": "shield",
+            "title": "60-night trial",
+            "text": "Take two months. If it's not for you, we'll refund you."
+          }
+        },
+        "g2": {
+          "type": "promise",
+          "settings": {
+            "icon": "clock",
+            "title": "2-year warranty",
+            "text": "Every device is covered against defects for two full years."
+          }
+        },
+        "g3": {
+          "type": "promise",
+          "settings": {
+            "icon": "truck",
+            "title": "SA-wide delivery",
+            "text": "Door-to-door in 7–14 days, tracked the whole way."
+          }
+        },
+        "g4": {
+          "type": "promise",
+          "settings": {
+            "icon": "chat",
+            "title": "Local support",
+            "text": "A friendly Cape Town team, ready to help by email or WhatsApp."
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "g2",
+        "g3",
+        "g4"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "f1": {
+          "type": "qa",
+          "settings": {
+            "question": "How long until I see results?",
+            "answer": "Everyone's skin is different. With consistent use — around 10 minutes a day, most evenings — many people notice their skin looks calmer and more radiant within a few weeks. Light therapy is a gradual, supportive ritual rather than an overnight fix."
+          }
+        },
+        "f2": {
+          "type": "qa",
+          "settings": {
+            "question": "Is it safe to use at home?",
+            "answer": "Our devices use skin-safe LED wavelengths and contain no UV. They're designed for comfortable daily use at home. As with any wellness device, follow the included guide, and check with your doctor if you're pregnant, on photosensitising medication, or have a skin condition."
+          }
+        },
+        "f3": {
+          "type": "qa",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "We deliver door-to-door across South Africa, typically within 7–14 days. Orders over R750 ship free, and you'll get tracking the whole way."
+          }
+        },
+        "f4": {
+          "type": "qa",
+          "settings": {
+            "question": "What if it's not for me?",
+            "answer": "You have a 60-night home trial. If you're not glowing, contact our team and we'll arrange a return and refund — no awkward questions."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ]
+    },
+    "newsletter": {
+      "type": "newsletter"
+    },
+    "ugc": {
+      "type": "ugc",
+      "blocks": {
+        "u1": {
+          "type": "photo",
+          "settings": {}
+        },
+        "u2": {
+          "type": "photo",
+          "settings": {}
+        },
+        "u3": {
+          "type": "photo",
+          "settings": {}
+        },
+        "u4": {
+          "type": "photo",
+          "settings": {}
+        },
+        "u5": {
+          "type": "photo",
+          "settings": {}
+        },
+        "u6": {
+          "type": "photo",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "u1",
+        "u2",
+        "u3",
+        "u4",
+        "u5",
+        "u6"
+      ]
+    },
+    "story": {
+      "type": "story"
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "bestsellers",
+    "science",
+    "lifestyle",
+    "testimonials",
+    "guarantee",
+    "faq",
+    "newsletter",
+    "ugc",
+    "story"
+  ]
+}

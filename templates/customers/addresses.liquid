@@ -1,0 +1,7 @@
+<section class="section"><div class="wrap" style="max-width:640px;">
+  <h1 style="font-family:var(--font-display);font-weight:600;font-size:32px;margin-bottom:18px;">Your addresses</h1>
+  <p><a href="{{ routes.account_url }}" class="link-underline">← Back to account</a></p>
+  {%- for address in customer.addresses -%}
+    <div style="padding:16px 0;border-bottom:1px solid var(--line-soft);">{{ address | format_address }}</div>
+  {%- else -%}<p class="lede">No saved addresses.</p>{%- endfor -%}
+</div></section>

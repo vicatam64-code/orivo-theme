@@ -1,0 +1,50 @@
+{
+  "current": {
+    "brand_name": "Orivo",
+    "show_announcement": true,
+    "announcement_text": "Winter sale ends in",
+    "show_countdown": true,
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": { "show": true, "text": "Winter sale ends in", "countdown": true }
+      },
+      "header": {
+        "type": "header",
+        "settings": { "brand_name": "Orivo" }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "col-shop": {
+            "type": "column",
+            "settings": {
+              "heading": "Shop",
+              "links": "LED Photon Mask | /collections/all\nLumi Sculpt | /collections/all\nRestore Cup | /collections/all\nAlignPro | /collections/all"
+            }
+          },
+          "col-support": {
+            "type": "column",
+            "settings": {
+              "heading": "Support",
+              "links": "Contact us | /pages/contact\nFAQ | /#faq\nShipping & returns | #\nWarranty | #"
+            }
+          },
+          "col-company": {
+            "type": "column",
+            "settings": {
+              "heading": "Company",
+              "links": "Our story | /#story\nThe science | /#science"
+            }
+          }
+        },
+        "block_order": ["col-shop", "col-support", "col-company"],
+        "settings": {
+          "brand_name": "Orivo",
+          "tagline": "Light-powered skin & wellness rituals, designed in Johannesburg for the way South Africans actually live.",
+          "legal": "© 2026 Orivo. All rights reserved. Wellness device — not intended to diagnose or treat any condition."
+        }
+      }
+    }
+  }
+}

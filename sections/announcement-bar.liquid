@@ -1,0 +1,18 @@
+{%- if section.settings.show -%}
+<div class="announce">
+  <div class="announce-inner">
+    <span>{{ section.settings.text }}{% if section.settings.countdown %} <span class="cd" data-countdown>00:00:00</span>{% endif %}</span>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    { "type": "checkbox", "id": "show", "label": "Show announcement", "default": true },
+    { "type": "text", "id": "text", "label": "Text", "default": "Winter sale ends in" },
+    { "type": "checkbox", "id": "countdown", "label": "Show countdown", "default": true }
+  ]
+}
+{% endschema %}

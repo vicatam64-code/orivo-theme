@@ -1,0 +1,49 @@
+<section class="contact-hero">
+  <div class="wrap">
+    <p class="eyebrow reveal">{{ section.settings.eyebrow }}</p>
+    <h1 class="reveal">{{ section.settings.heading }}</h1>
+    {%- if section.settings.intro != blank -%}<p class="lede reveal">{{ section.settings.intro }}</p>{%- endif -%}
+  </div>
+</section>
+<section class="section" style="padding-top:clamp(24px,3vw,40px);">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-form reveal">
+        {%- if form.posted_successfully? -%}
+          <div class="form-success show">Thanks for reaching out — we've received your message and will reply soon. ✓</div>
+        {%- endif -%}
+        {%- form 'contact' -%}
+          <div class="field"><label for="c-name">Name</label><input type="text" id="c-name" name="contact[name]" placeholder="Your full name" autocomplete="name"></div>
+          <div class="field"><label for="c-email">Email <span class="req">*</span></label><input type="email" id="c-email" name="contact[email]" placeholder="you@email.co.za" autocomplete="email" required></div>
+          <div class="field"><label for="c-phone">Phone</label><input type="tel" id="c-phone" name="contact[phone]" placeholder="0__ ___ ____" autocomplete="tel"></div>
+          <div class="field"><label for="c-comment">Comment</label><textarea id="c-comment" name="contact[body]" placeholder="How can we help?"></textarea></div>
+          <button type="submit" class="btn btn-accent btn-lg btn-block">Submit</button>
+          <p class="form-note">By submitting, you agree to be contacted about your enquiry. We'll never share your details.</p>
+        {%- endform -%}
+      </div>
+      <div class="contact-side reveal">
+        <div class="card">
+          <h3>{{ section.settings.side_heading }}</h3>
+          <p>{{ section.settings.side_text }}</p>
+          <div class="contact-method" style="margin-top:18px;"><span class="ic">{% render 'icon', name: 'chat', size: 20 %}</span><div><b>WhatsApp</b><span>{{ section.settings.whatsapp }}</span></div></div>
+          <div class="contact-method"><span class="ic">{% render 'icon', name: 'shield', size: 20 %}</span><div><b>Based in</b><span>{{ section.settings.location }}</span></div></div>
+        </div>
+        <div class="contact-faq"><h4>Quick answers</h4><p style="color:var(--ink-soft); font-size:14.5px;">Many questions about shipping, the 60-night trial and warranty are answered on our <a href="{{ routes.root_url }}#faq">FAQ</a>.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "We're here to help" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get in touch" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Questions about a device, your order, or which ritual is right for you? Drop us a message and our Johannesburg team will get back to you, usually within one working day." },
+    { "type": "text", "id": "side_heading", "label": "Side heading", "default": "Talk to a human" },
+    { "type": "textarea", "id": "side_text", "label": "Side text", "default": "Real people, based in Johannesburg — happy to help you choose, set up or troubleshoot." },
+    { "type": "text", "id": "whatsapp", "label": "WhatsApp", "default": "+27 21 000 0000 · Mon–Fri, 9–5" },
+    { "type": "text", "id": "location", "label": "Location", "default": "Johannesburg, South Africa" }
+  ]
+}
+{% endschema %}

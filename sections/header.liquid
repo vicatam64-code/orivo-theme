@@ -1,0 +1,51 @@
+<header class="site-header">
+  <nav class="nav wrap" aria-label="Primary">
+    <button class="nav-toggle" aria-label="Open menu" data-nav-toggle>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+    </button>
+    <a class="brand" href="{{ routes.root_url }}">{{ section.settings.brand_name | default: 'Orivo' }}<span class="reg">&reg;</span></a>
+    <div class="nav-links">
+      {%- if section.settings.menu != blank and linklists[section.settings.menu].links.size > 0 -%}
+        {%- for link in linklists[section.settings.menu].links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}">Shop All</a>
+        <a href="{{ routes.root_url }}#science">The Science</a>
+        <a href="{{ routes.root_url }}#story">Our Story</a>
+        <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact</a>
+      {%- endif -%}
+    </div>
+    <div class="nav-actions">
+      <a class="icon-btn" href="{{ routes.search_url }}" aria-label="Search"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg></a>
+      <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="Cart"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h12l-1 13H7L6 7Z"></path><path d="M9 7a3 3 0 0 1 6 0"></path></svg><span class="cart-count" data-cart-count{% if cart.item_count == 0 %} style="display:none"{% endif %}>{{ cart.item_count }}</span></a>
+    </div>
+  </nav>
+</header>
+
+<div class="drawer" data-drawer>
+  <div class="ov" data-close></div>
+  <div class="panel">
+    <button class="x" data-close aria-label="Close">&times;</button>
+    {%- if section.settings.menu != blank and linklists[section.settings.menu].links.size > 0 -%}
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="{{ routes.all_products_collection_url }}">Shop All</a>
+      <a href="{{ routes.root_url }}#science">The Science</a>
+      <a href="{{ routes.root_url }}#story">Our Story</a>
+      <a href="{{ pages.contact.url | default: '/pages/contact' }}">Contact</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Orivo" },
+    { "type": "link_list", "id": "menu", "label": "Menu (optional, falls back to default links)" }
+  ]
+}
+{% endschema %}

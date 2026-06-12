@@ -1,0 +1,5 @@
+<section class="section"><div class="wrap" style="max-width:780px;">
+  <div class="section-head reveal" style="margin-bottom:18px;"><p class="eyebrow">{{ article.published_at | date: '%B %-d, %Y' }}</p><h1 style="font-family:var(--font-display);font-weight:600;font-size:clamp(32px,5vw,52px);">{{ article.title }}</h1></div>
+  {%- if article.image -%}<img src="{{ article.image | image_url: width: 1400 }}" alt="{{ article.title | escape }}" style="width:100%;border-radius:18px;margin:18px 0;">{%- endif -%}
+  <div class="rte reveal">{{ article.content }}</div>
+</div></section>

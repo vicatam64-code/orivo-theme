@@ -1,0 +1,16 @@
+{%- comment -%} Minimal best-seller card matching source .bs-card. Param: product {%- endcomment -%}
+{%- liquid
+  assign p = product
+  assign sub = p.metafields.custom.subtitle
+-%}
+<a href="{{ p.url }}" class="bs-card reveal">
+  <div class="bs-media" data-label="{{ p.title | escape }}">
+    {%- if p.featured_media -%}
+      <img src="{{ p.featured_media | image_url: width: 900 }}" alt="{{ p.featured_media.alt | escape | default: p.title }}" loading="lazy" decoding="async" width="900" height="900" style="width:100%;height:100%;object-fit:cover;display:block;">
+    {%- else -%}
+      <div class="orivo-ph"><span>{{ p.title }}</span></div>
+    {%- endif -%}
+  </div>
+  <div class="bs-meta">{{ p.title }}{% if sub != blank %} <span class="sep">|</span> {{ sub }}{% endif %}</div>
+  <div class="bs-price">{{ p.price | money }}</div>
+</a>

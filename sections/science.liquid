@@ -1,0 +1,64 @@
+<section class="section science" id="science">
+  <div class="wrap">
+    <div class="section-head center head reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.lede != blank -%}<p class="lede measure" style="margin-inline:auto">{{ section.settings.lede }}</p>{%- endif -%}
+    </div>
+    <div class="bene-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'benefit' -%}
+        <div class="bene-card reveal" {{ block.shopify_attributes }}>
+          <span class="ic">{% render 'icon', name: block.settings.icon, size: 26 %}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="wave-band reveal" style="margin-top:52px;">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'wavelength' -%}
+        <div class="cell" {{ block.shopify_attributes }}>
+          <div class="nm">{{ block.settings.value }}<span>{{ block.settings.unit }}</span></div>
+          <h4>{{ block.settings.title }}</h4>
+          <p>{{ block.settings.text }}</p>
+        </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Science benefits",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Science-backed" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Light your skin understands" },
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Specific wavelengths of red and near-infrared light are studied for the way they may support the skin's natural processes. Here's what consistent use is designed to help with." }
+  ],
+  "blocks": [
+    { "type": "benefit", "name": "Benefit", "settings": [
+      { "type": "select", "id": "icon", "label": "Icon", "default": "sun",
+        "options": [{"value":"sun","label":"Sun"},{"value":"heart","label":"Heart"},{"value":"leaf","label":"Leaf"},{"value":"drop","label":"Drop"}] },
+      { "type": "text", "id": "title", "label": "Title", "default": "Rejuvenation" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Helps support skin rejuvenation and a smoother-looking, more even complexion over time." }
+    ]},
+    { "type": "wavelength", "name": "Wavelength", "settings": [
+      { "type": "text", "id": "value", "label": "Value", "default": "630" },
+      { "type": "text", "id": "unit", "label": "Unit", "default": "nm" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Red light" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "Targets the surface of the skin to help support a radiant, even-looking tone." }
+    ]}
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "Science benefits", "blocks": [
+    {"type":"benefit","settings":{"icon":"sun","title":"Rejuvenation","text":"Helps support skin rejuvenation and a smoother-looking, more even complexion over time."}},
+    {"type":"benefit","settings":{"icon":"heart","title":"Fine lines","text":"May improve the appearance of fine lines and help skin feel firmer and more supple."}},
+    {"type":"benefit","settings":{"icon":"leaf","title":"Recovery & calm","text":"Supports recovery and overall wellness, helping you wind down and feel restored."}},
+    {"type":"wavelength","settings":{"value":"630","unit":"nm","title":"Red light","text":"Targets the surface of the skin to help support a radiant, even-looking tone."}},
+    {"type":"wavelength","settings":{"value":"660","unit":"nm","title":"Deep red","text":"Reaches a little deeper, designed to complement your skin's natural renewal."}},
+    {"type":"wavelength","settings":{"value":"850","unit":"nm","title":"Near-infrared","text":"Penetrates further to support recovery, comfort and overall wellness."}}
+  ]}]
+}
+{% endschema %}

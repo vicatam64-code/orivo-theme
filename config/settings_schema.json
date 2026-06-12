@@ -1,0 +1,19 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Orivo",
+    "theme_version": "1.0.0",
+    "theme_author": "Orivo",
+    "theme_documentation_url": "https://orivo.co.za",
+    "theme_support_url": "https://orivo.co.za"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Orivo" },
+      { "type": "checkbox", "id": "show_announcement", "label": "Show announcement bar", "default": true },
+      { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Winter sale ends in" },
+      { "type": "checkbox", "id": "show_countdown", "label": "Show countdown timer", "default": true }
+    ]
+  }
+]
