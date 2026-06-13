@@ -142,6 +142,8 @@
       "type": "lifestyle",
       "settings": {
         "image_a": "shopify://shop_images/Product_Staging-61b976ab-84f6-4d98-8249-176fefedb810.jpg",
+        "image_b": "shopify://shop_images/ProductStaging-f989f31e-da37-4b8e-b183-f24d0dff60d7.jpg",
+        "image_c": "shopify://shop_images/Product_Staging-282d9852-34b4-4858-b167-a668a8c0090c.jpg",
         "caption": "Made to fit the evenings you already love.",
         "cta_label": "Find your device",
         "cta_link": ""
