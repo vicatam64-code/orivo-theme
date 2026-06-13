@@ -312,19 +312,12 @@
           "settings": {
             "image": "shopify://shop_images/Image_26.jpg"
           }
-        },
-        "u4": {
-          "type": "photo",
-          "settings": {
-            "image": "shopify://shop_images/Image_24.jpg"
-          }
         }
       },
       "block_order": [
         "u1",
         "u2",
-        "u3",
-        "u4"
+        "u3"
       ],
       "settings": {
         "handle_label": "@orivo.glow",
