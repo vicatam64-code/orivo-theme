@@ -20,7 +20,23 @@
 
   {{ content_for_header }}
 </head>
-<body class="template-{{ template.name }}">
+{%- liquid
+  case template.name
+    when 'index'
+      assign lux_page = 'lux-home-page'
+    when 'product'
+      assign lux_page = 'lux-product-page'
+    when 'collection'
+      assign lux_page = 'lux-catalog-page'
+    when 'list-collections'
+      assign lux_page = 'lux-catalog-page'
+    when 'search'
+      assign lux_page = 'lux-catalog-page'
+    else
+      assign lux_page = 'lux-contact-page'
+  endcase
+-%}
+<body class="template-{{ template.name }} {{ lux_page }}">
 
   {% section 'announcement-bar' %}
   {% section 'header' %}
