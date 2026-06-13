@@ -65,10 +65,12 @@
       {%- unless p.has_only_default_variant -%}
         <div class="lux-variants">
           {%- for option in p.options_with_values -%}
-            <label class="opt-label">{{ option.name }}</label>
-            <select class="opt-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ option.name }}">
-              {%- for value in option.values -%}<option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>{%- endfor -%}
-            </select>
+            <label class="lbl">{{ option.name }}</label>
+            <div class="opts" data-option-index="{{ forloop.index0 }}" role="group" aria-label="{{ option.name }}">
+              {%- for value in option.values -%}
+                <button type="button" class="lux-opt{% if option.selected_value == value %} on{% endif %}" data-value="{{ value | escape }}">{{ value }}</button>
+              {%- endfor -%}
+            </div>
           {%- endfor -%}
         </div>
       {%- endunless -%}
@@ -126,12 +128,12 @@
 (function(){
   var form=document.getElementById('product-form'); if(!form) return;
   var variantSel=form.querySelector('#variant-id');
-  var optSelects=form.querySelectorAll('.opt-select');
+  var optGroups=form.querySelectorAll('.lux-variants .opts');
   var variants={{ p.variants | json }};
-  function currentTitle(){ return Array.prototype.map.call(optSelects,function(s){return s.value;}).join(' / '); }
+  function currentTitle(){ return Array.prototype.map.call(optGroups,function(g){ var b=g.querySelector('.lux-opt.on'); return b?b.getAttribute('data-value'):''; }).join(' / '); }
   function update(){
     var v;
-    if(optSelects.length){ var title=currentTitle(); v=variants.filter(function(x){return x.title===title;})[0]; }
+    if(optGroups.length){ var title=currentTitle(); v=variants.filter(function(x){return x.title===title;})[0]; }
     else { v=variants[0]; }
     if(!v) return;
     variantSel.value=v.id;
@@ -141,7 +143,21 @@
     document.querySelectorAll('[data-add]').forEach(function(b){ b.setAttribute('data-variant-id', v.id); });
     var lbl=form.querySelector('.lux-buy .btn-accent [data-add-label]'); if(lbl) lbl.textContent='Add to cart — '+money;
   }
-  optSelects.forEach(function(s){ s.addEventListener('change', update); });
+  optGroups.forEach(function(g){
+    g.addEventListener('click', function(e){
+      var btn=e.target.closest('.lux-opt'); if(!btn||btn.disabled) return;
+      g.querySelectorAll('.lux-opt').forEach(function(b){ b.classList.remove('on'); });
+      btn.classList.add('on');
+      update();
+    });
+  });
+  if(optGroups.length===1){
+    optGroups[0].querySelectorAll('.lux-opt').forEach(function(b){
+      var val=b.getAttribute('data-value');
+      var mv=variants.filter(function(x){return x.title===val;})[0];
+      if(mv && mv.available===false){ b.classList.add('soldout'); b.disabled=true; }
+    });
+  }
   update();
 
   /* Sticky add-to-cart: reveal once the main buy button scrolls out of view */
