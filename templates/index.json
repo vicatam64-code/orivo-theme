@@ -1,7 +1,17 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
-      "type": "hero"
+      "type": "hero",
+      "settings": {}
     },
     "trust": {
       "type": "trust-strip",
@@ -40,7 +50,8 @@
         "b2",
         "b3",
         "b4"
-      ]
+      ],
+      "settings": {}
     },
     "bestsellers": {
       "type": "featured-products",
@@ -111,10 +122,12 @@
         "wl1",
         "wl2",
         "wl3"
-      ]
+      ],
+      "settings": {}
     },
     "lifestyle": {
-      "type": "lifestyle"
+      "type": "lifestyle",
+      "settings": {}
     },
     "testimonials": {
       "type": "testimonials",
@@ -154,7 +167,8 @@
         "t1",
         "t2",
         "t3"
-      ]
+      ],
+      "settings": {}
     },
     "guarantee": {
       "type": "guarantee",
@@ -197,7 +211,8 @@
         "g2",
         "g3",
         "g4"
-      ]
+      ],
+      "settings": {}
     },
     "faq": {
       "type": "faq",
@@ -236,10 +251,12 @@
         "f2",
         "f3",
         "f4"
-      ]
+      ],
+      "settings": {}
     },
     "newsletter": {
-      "type": "newsletter"
+      "type": "newsletter",
+      "settings": {}
     },
     "ugc": {
       "type": "ugc",
@@ -266,10 +283,12 @@
         "u2",
         "u3",
         "u4"
-      ]
+      ],
+      "settings": {}
     },
     "story": {
-      "type": "story"
+      "type": "story",
+      "settings": {}
     }
   },
   "order": [
