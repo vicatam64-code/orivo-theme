@@ -3,7 +3,8 @@
    Loaded AFTER base.css so these rules take precedence.
    Covers: glowing countdown, best-seller image fit,
    shorter mobile banner, product-page mobile fit,
-   product trust strip, review distribution bars.
+   product trust strip, review distribution bars,
+   no horizontal wobble on mobile.
    ============================================================ */
 
 /* ---------- 1. Glowing / illuminating urgency countdown ---------- */
@@ -97,8 +98,15 @@
 }
 
 /* ---------- 6. Review distribution bars — show the orange fill ---------- */
-/* The .fill element is an inline <span>, so its width/height were ignored
-   and the orange indicator never rendered. Making it block-level lets the
-   inline width:NN% paint as a proportional orange bar inside the track. */
 .lux-reviews .bar .track{ display:block; position:relative; }
 .lux-reviews .bar .fill{ display:block; }
+
+/* ---------- 7. Stop horizontal wobble on mobile ---------- */
+/* Off-canvas menu/cart drawers sit off-screen via translateX and were
+   poking past the viewport edge, making the page scroll sideways (wobble).
+   overflow-x:clip on the root removes the sideways scroll WITHOUT turning
+   the body into a scroll container (so position:sticky still works), and
+   clipping the drawers contains them when closed. */
+html{ overflow-x:clip; }
+body{ overflow-x:clip; max-width:100%; }
+.drawer{ overflow:hidden; }
