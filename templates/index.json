@@ -297,7 +297,9 @@
       "blocks": {
         "u1": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Image_22.jpg"
+          }
         },
         "u2": {
           "type": "photo",
