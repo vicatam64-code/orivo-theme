@@ -3,7 +3,7 @@
    Loaded AFTER base.css so these rules take precedence.
    Covers: glowing countdown, best-seller image fit,
    shorter mobile banner, product-page mobile fit,
-   product trust strip (no squashing on mobile).
+   product trust strip, review distribution bars.
    ============================================================ */
 
 /* ---------- 1. Glowing / illuminating urgency countdown ---------- */
@@ -88,8 +88,6 @@
 }
 
 /* ---------- 5. Product trust strip — don't squash on mobile ---------- */
-/* Two narrow columns crammed the icon + text together and forced the
-   labels to wrap awkwardly. Give each item the full row width on phones. */
 @media (max-width:600px){
   .lux-trust .row{ grid-template-columns:1fr; gap:4px 0; padding:22px 0; }
   .lux-trust .ti{ gap:14px; padding:11px 0; align-items:center; }
@@ -97,3 +95,10 @@
   .lux-trust .ti b{ font-size:15px; line-height:1.2; }
   .lux-trust .ti small{ font-size:13px; }
 }
+
+/* ---------- 6. Review distribution bars — show the orange fill ---------- */
+/* The .fill element is an inline <span>, so its width/height were ignored
+   and the orange indicator never rendered. Making it block-level lets the
+   inline width:NN% paint as a proportional orange bar inside the track. */
+.lux-reviews .bar .track{ display:block; position:relative; }
+.lux-reviews .bar .fill{ display:block; }
