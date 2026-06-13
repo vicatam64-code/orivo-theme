@@ -11,7 +11,15 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/Product_Staging-8fe3d9e6-8ab0-4ada-8761-8074f226b54d_Product_Staging_Edit_with_AI.jpg",
+        "placeholder": "Add a full-bleed lifestyle image",
+        "eyebrow": "The Orivo Light Ritual",
+        "heading": "Skin, restored by light.",
+        "subheading": "Red & near-infrared wavelengths designed to complement your daily routine and support a healthy, luminous glow.",
+        "cta_label": "Discover the ritual",
+        "cta_link": ""
+      }
     },
     "trust": {
       "type": "trust-strip",
@@ -57,6 +65,7 @@
       "type": "featured-products",
       "settings": {
         "heading": "Best Sellers",
+        "collection": "",
         "limit": 4
       }
     },
@@ -123,11 +132,19 @@
         "wl2",
         "wl3"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Science-backed",
+        "heading": "Light your skin understands",
+        "lede": "Specific wavelengths of red and near-infrared light are studied for the way they may support the skin's natural processes. Here's what consistent use is designed to help with."
+      }
     },
     "lifestyle": {
       "type": "lifestyle",
-      "settings": {}
+      "settings": {
+        "caption": "Made to fit the evenings you already love.",
+        "cta_label": "Find your device",
+        "cta_link": ""
+      }
     },
     "testimonials": {
       "type": "testimonials",
@@ -168,7 +185,10 @@
         "t2",
         "t3"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Loved across SA",
+        "heading": "From Joburg to the coast"
+      }
     },
     "guarantee": {
       "type": "guarantee",
@@ -212,7 +232,10 @@
         "g3",
         "g4"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "The Orivo promise",
+        "heading": "Try it, love it — or send it back"
+      }
     },
     "faq": {
       "type": "faq",
@@ -252,11 +275,19 @@
         "f3",
         "f4"
       ],
-      "settings": {}
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Questions, answered"
+      }
     },
     "newsletter": {
       "type": "newsletter",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Join the ritual",
+        "heading": "Stay in the glow",
+        "button": "Sign up",
+        "note": "No spam, just glow tips & the occasional offer. Unsubscribe anytime."
+      }
     },
     "ugc": {
       "type": "ugc",
@@ -284,11 +315,20 @@
         "u3",
         "u4"
       ],
-      "settings": {}
+      "settings": {
+        "handle_label": "@orivo.glow",
+        "link_label": "Follow along →",
+        "link": ""
+      }
     },
     "story": {
       "type": "story",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Our story",
+        "heading": "Born from a belief that wellness should feel calm.",
+        "body": "<p>Orivo began in Johannesburg with a simple idea: the most effective rituals are the ones you actually look forward to.</p><p>Every device is engineered around proven wavelengths, tested for safety, and designed to slip effortlessly into your evenings.</p>",
+        "signature": "— The Orivo team"
+      }
     }
   },
   "order": [
