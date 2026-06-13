@@ -328,6 +328,7 @@
     "story": {
       "type": "story",
       "settings": {
+        "image": "shopify://shop_images/Image_27.jpg",
         "eyebrow": "Our story",
         "heading": "Born from a belief that wellness should feel calm.",
         "body": "<p>Orivo began in Johannesburg with a simple idea: the most effective rituals are the ones you actually look forward to.</p><p>Every device is engineered around proven wavelengths, tested for safety, and designed to slip effortlessly into your evenings.</p>",
