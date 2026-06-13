@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "brand_name": "Orivo",
@@ -7,11 +16,18 @@
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
-        "settings": { "show": true, "text": "Winter sale ends in", "countdown": true }
+        "settings": {
+          "show": true,
+          "text": "Winter sale ends in",
+          "countdown": true
+        }
       },
       "header": {
         "type": "header",
-        "settings": { "brand_name": "Orivo" }
+        "settings": {
+          "brand_name": "Orivo",
+          "menu": ""
+        }
       },
       "footer": {
         "type": "footer",
@@ -38,13 +54,18 @@
             }
           }
         },
-        "block_order": ["col-shop", "col-support", "col-company"],
+        "block_order": [
+          "col-shop",
+          "col-support",
+          "col-company"
+        ],
         "settings": {
           "brand_name": "Orivo",
           "tagline": "Light-powered skin & wellness rituals, designed in Johannesburg for the way South Africans actually live.",
           "legal": "© 2026 Orivo. All rights reserved. Wellness device — not intended to diagnose or treat any condition."
         }
       }
-    }
+    },
+    "content_for_index": []
   }
 }
