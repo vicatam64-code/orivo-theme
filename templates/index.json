@@ -315,7 +315,9 @@
         },
         "u4": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Image_24.jpg"
+          }
         }
       },
       "block_order": [
