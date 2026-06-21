@@ -1,0 +1,84 @@
+{%- if product.handle == 'led-photon-mask-1' -%}
+{%- assign _v = product.selected_or_first_available_variant -%}
+{%- assign u = _v.price -%}
+{%- assign cmp = _v.compare_at_price -%}
+{%- assign b2_total = u | times: 2 -%}
+{%- assign b2_compare = u | times: 3 -%}
+{%- if cmp > u -%}{%- assign a1_pct = cmp | minus: u | times: 100 | divided_by: cmp -%}{%- else -%}{%- assign a1_pct = 0 -%}{%- endif -%}
+<style>
+  .orv-bundles{display:flex;flex-direction:column;gap:12px;margin:18px 0 10px;}
+  .orv-bundle{position:relative;display:flex;align-items:center;gap:14px;border:2px solid #e4e4e7;border-radius:16px;padding:16px 18px;cursor:pointer;background:#fff;transition:border-color .15s,box-shadow .15s;}
+  .orv-bundle:hover{border-color:#c8c8cf;}
+  .orv-bundle.on{border-color:#111;box-shadow:0 4px 16px rgba(0,0,0,.08);}
+  .orv-radio{flex:0 0 22px;width:22px;height:22px;border-radius:50%;border:2px solid #c8c8cf;display:grid;place-items:center;transition:border-color .15s;}
+  .orv-bundle.on .orv-radio{border-color:#111;}
+  .orv-radio::after{content:"";width:11px;height:11px;border-radius:50%;background:#111;transform:scale(0);transition:transform .15s;}
+  .orv-bundle.on .orv-radio::after{transform:scale(1);}
+  .orv-bd{flex:1;min-width:0;}
+  .orv-title{font-weight:600;font-size:16px;line-height:1.2;display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+  .orv-save{font-size:11px;font-weight:700;letter-spacing:.02em;color:#0a7d34;background:#e7f6ec;padding:3px 8px;border-radius:999px;white-space:nowrap;}
+  .orv-pop{position:absolute;top:-10px;right:16px;font-size:10px;font-weight:800;letter-spacing:.04em;color:#fff;background:#111;padding:4px 10px;border-radius:999px;text-transform:uppercase;}
+  .orv-sub{font-size:13px;color:#6b7280;margin-top:3px;}
+  .orv-pr{text-align:right;flex:0 0 auto;}
+  .orv-now{font-weight:700;font-size:16px;display:block;}
+  .orv-was{display:block;font-size:13px;color:#9ca3af;text-decoration:line-through;}
+</style>
+<div class="orv-bundles" data-orv-bundles role="radiogroup" aria-label="Choose your bundle">
+  <div class="orv-bundle on" role="radio" aria-checked="true" tabindex="0" data-bundle data-qty="1" data-total="{{ u }}" data-compare="{{ cmp }}">
+    <span class="orv-radio" aria-hidden="true"></span>
+    <div class="orv-bd">
+      <div class="orv-title">Buy 1{% if a1_pct > 0 %} <span class="orv-save">SAVE {{ a1_pct }}%</span>{% endif %}</div>
+      <div class="orv-sub">Standard price &middot; 1 device</div>
+    </div>
+    <div class="orv-pr"><span class="orv-now">{{ u | money }}</span>{% if cmp > u %}<span class="orv-was">{{ cmp | money }}</span>{% endif %}</div>
+  </div>
+  <div class="orv-bundle" role="radio" aria-checked="false" tabindex="0" data-bundle data-qty="3" data-total="{{ b2_total }}" data-compare="{{ b2_compare }}">
+    <span class="orv-pop">Most Popular</span>
+    <span class="orv-radio" aria-hidden="true"></span>
+    <div class="orv-bd">
+      <div class="orv-title">Buy 2, Get 1 Free <span class="orv-save">SAVE 33%</span></div>
+      <div class="orv-sub">3 devices &middot; you save {{ u | money }}</div>
+    </div>
+    <div class="orv-pr"><span class="orv-now">{{ b2_total | money }}</span><span class="orv-was">{{ b2_compare | money }}</span></div>
+  </div>
+</div>
+<script>
+(function(){
+  var box=document.querySelector('[data-orv-bundles]'); if(!box) return;
+  var form=document.getElementById('product-form'); if(!form) return;
+  var anchor=form.querySelector('.lux-price');
+  if(anchor && anchor.parentNode){ anchor.parentNode.insertBefore(box, anchor); }
+  var iso='{{ cart.currency.iso_code }}';
+  function money(c){ return (c/100).toLocaleString('en-ZA',{style:'currency',currency:iso}); }
+  var qtyWrap=form.querySelector('.lux-qty'); if(qtyWrap){ qtyWrap.style.display='none'; }
+  var cards=box.querySelectorAll('[data-bundle]');
+  function pick(card){
+    cards.forEach(function(b){ b.classList.remove('on'); b.setAttribute('aria-checked','false'); });
+    card.classList.add('on'); card.setAttribute('aria-checked','true');
+    var qty=parseInt(card.getAttribute('data-qty'),10)||1;
+    var total=parseInt(card.getAttribute('data-total'),10)||0;
+    var compare=parseInt(card.getAttribute('data-compare'),10)||0;
+    var nowM=money(total);
+    var qi=form.querySelector('.lux-qty input'); if(qi){ qi.value=qty; }
+    form.querySelectorAll('[data-add]').forEach(function(b){ b.setAttribute('data-qty', qty); });
+    var now=form.querySelector('[data-price-now]'); if(now){ now.textContent=nowM; }
+    var pb=form.querySelector('.lux-price');
+    if(pb){
+      var was=pb.querySelector('.was'); var pill=pb.querySelector('.pill.save');
+      if(was && compare>total){ was.textContent=money(compare); }
+      if(pill && compare>total){ pill.textContent='You save '+money(compare-total); }
+    }
+    var lbl=form.querySelector('.lux-buy [data-add-label]'); if(lbl){ lbl.textContent='Add to cart — '+nowM; }
+    var sp=document.querySelector('[data-sticky-price]'); if(sp){ sp.textContent=nowM; }
+  }
+  cards.forEach(function(card){
+    card.addEventListener('click', function(){ pick(card); });
+    card.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); pick(card); } });
+  });
+  pick(cards[0]);
+})();
+</script>
+{%- endif -%}
+{% schema %}
+{ "name": "Orivo bundle picker", "settings": [], "presets": [{ "name": "Orivo bundle picker" }] }
+{% endschema %}

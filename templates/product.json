@@ -24,6 +24,10 @@
         "shipping_note": "Ships door-to-door in 7–14 days · Free over R750"
       }
     },
+    "bundle": {
+      "type": "orivo-bundle",
+      "settings": {}
+    },
     "how": {
       "type": "how-it-works",
       "blocks": {
@@ -230,6 +234,7 @@
   },
   "order": [
     "main",
+    "bundle",
     "how",
     "science",
     "reviews",
