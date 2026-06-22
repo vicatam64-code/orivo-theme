@@ -1,0 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": { "type": "orivopur-hero", "settings": {} },
+    "marquee": { "type": "orivopur-marquee", "settings": {} },
+    "herbs": {
+      "type": "orivopur-herbs",
+      "blocks": {
+        "h1": { "type": "herb", "settings": { "title": "Mullein Leaf", "body": "The foundation. Long used in traditional wellness for its gentle, soothing botanical character." } },
+        "h2": { "type": "herb", "settings": { "title": "Thyme", "body": "A bright, herbaceous aromatic that adds a clean, garden-fresh note to every breath." } },
+        "h3": { "type": "herb", "settings": { "title": "Mint", "body": "Cools and refreshes on contact for that instant open, airy sensation." } }
+      },
+      "block_order": ["h1", "h2", "h3"],
+      "settings": {}
+    },
+    "stats": {
+      "type": "orivopur-stats",
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "number": "9 in 10", "label": "Loved the fresh, cooling sensation" } },
+        "s2": { "type": "stat", "settings": { "number": "94%", "label": "Said it was easy to use day to day" } },
+        "s3": { "type": "stat", "settings": { "number": "4.8★", "label": "Average customer rating" } },
+        "s4": { "type": "stat", "settings": { "number": "30-Day", "label": "Money-back guarantee" } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"],
+      "settings": {}
+    },
+    "mechanism": { "type": "orivopur-mechanism", "settings": {} },
+    "reviews": {
+      "type": "orivopur-reviews",
+      "blocks": {
+        "r1": { "type": "review", "settings": { "name": "Thandi M.", "tag": "Verified Buyer", "quote": "The mint and mullein combo is so refreshing. It has become part of my morning routine." } },
+        "r2": { "type": "review", "settings": { "name": "James P.", "tag": "Verified Buyer", "quote": "Discreet and easy to carry. I like having a quick calming ritual at my desk." } },
+        "r3": { "type": "review", "settings": { "name": "Lerato K.", "tag": "Verified Buyer", "quote": "No mess, no taste, just a clean cooling breath. The bundle was great value." } },
+        "r4": { "type": "review", "settings": { "name": "Daniel V.", "tag": "Verified Buyer", "quote": "Arrived quickly and feels well made. Happy with the purchase." } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4"],
+      "settings": {}
+    },
+    "guarantee": { "type": "orivopur-guarantee", "settings": {} },
+    "faq": {
+      "type": "orivopur-faq",
+      "blocks": {
+        "f1": { "type": "faq", "settings": { "q": "What makes Orivo different?", "a": "It is a clean, pocket-sized aromatherapy ritual with mullein, thyme and mint botanicals — no water, no capsules, no aftertaste." } },
+        "f2": { "type": "faq", "settings": { "q": "How do I use it?", "a": "Lift the pen toward your nose and take a slow, gentle breath in. Use whenever you want a fresh, calming moment." } },
+        "f3": { "type": "faq", "settings": { "q": "Is it a medicine or vape?", "a": "No. Orivo is a botanical aromatherapy product for adult use. It is not a medicine, nicotine product, or medical device." } },
+        "f4": { "type": "faq", "settings": { "q": "Shipping and returns?", "a": "We ship across South Africa. If you are not happy, return within 30 days for a full refund." } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": {}
+    },
+    "sticky": { "type": "orivopur-sticky", "settings": {} }
+  },
+  "order": ["hero", "marquee", "herbs", "stats", "mechanism", "reviews", "guarantee", "faq", "sticky"]
+}
