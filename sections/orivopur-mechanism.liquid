@@ -1,0 +1,36 @@
+{{ 'orivopur-styles.css' | asset_url | stylesheet_tag }}
+<section class='orivopur-section orivopur-mechanism' id='shopify-section-{{ section.id }}-inner'>
+  <div class='orivopur-container'>
+    <div class='orivopur-mech-grid'>
+      <div class='orivopur-mech-img'>
+        {%- if section.settings.image != blank -%}<img src='{{ section.settings.image | image_url: width: 1000 }}' alt='{{ section.settings.heading | escape }}' loading='lazy' width='1000' height='1000'>{%- else -%}<div class='orivopur-gallery-empty'>Add an image in the theme editor</div>{%- endif -%}
+      </div>
+      <div class='orivopur-mech-body'>
+        <p class='orivopur-eyebrow'>{{ section.settings.eyebrow }}</p>
+        <h2 class='orivopur-h2'>{{ section.settings.heading }} <em style='color:var(--orivopur-accent);font-style:italic;'>{{ section.settings.heading_em }}</em></h2>
+        <div>{{ section.settings.body }}</div>
+        {%- if section.settings.cta_label != blank -%}<div style='margin-top:20px;max-width:260px;'><a class='orivopur-btn' href='{{ section.settings.cta_link | default: "#" }}'>{{ section.settings.cta_label }}</a></div>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  #shopify-section-{{ section.id }}{ background: var(--orivopur-surface); }
+  #shopify-section-{{ section.id }} h2{ color: var(--orivopur-ink); }
+  #shopify-section-{{ section.id }} p{ color: var(--orivopur-ink-muted); }
+</style>
+{% schema %}
+{
+  "name": "Orivo — Mechanism",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Orivo difference" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "It Is Not Just the Herbs." },
+    { "type": "text", "id": "heading_em", "label": "Heading emphasis", "default": "It Is the Experience." },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Most herbal routines are slow and fussy — teas to brew, capsules to swallow, drops to measure. Orivo is built for the opposite: lift it to your nose, take a slow breath, and enjoy a cool, fresh moment of calm botanicals wherever you are.</p><p>No water. No mess. No aftertaste. Just a pocket-sized ritual you will actually keep up with.</p>" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop now" },
+    { "type": "url", "id": "cta_link", "label": "Button link", "default": "/" }
+  ],
+  "presets": [{ "name": "Orivo — Mechanism" }]
+}
+{% endschema %}
