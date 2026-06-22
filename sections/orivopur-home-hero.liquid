@@ -1,0 +1,52 @@
+{{ 'orivopur-styles.css' | asset_url | stylesheet_tag }}
+<section class='orivopur-section orivopur-home-hero' id='shopify-section-{{ section.id }}-inner'>
+  <div class='orivopur-container'>
+    <div class='ohh-grid'>
+      <div class='ohh-copy'>
+        <p class='orivopur-eyebrow'>{{ section.settings.eyebrow }}</p>
+        <h1 class='ohh-title'>{{ section.settings.heading }}</h1>
+        <p class='orivopur-lead'>{{ section.settings.subheading }}</p>
+        <div class='orivopur-rating-row' style='margin:18px 0;'><span class='orivopur-stars'>&#9733;&#9733;&#9733;&#9733;&#9733;</span> <strong>{{ section.settings.rating }}</strong> <span>({{ section.settings.rating_count }})</span></div>
+        <div style='max-width:320px;'><a class='orivopur-btn' href='{{ section.settings.cta_link }}'>{{ section.settings.cta_label }}</a></div>
+        <div class='ohh-trust'>
+          <span>&#10003; {{ section.settings.trust1 }}</span>
+          <span>&#10003; {{ section.settings.trust2 }}</span>
+          <span>&#10003; {{ section.settings.trust3 }}</span>
+        </div>
+      </div>
+      <div class='ohh-media'>
+        {%- if section.settings.image != blank -%}<img src='{{ section.settings.image | image_url: width: 1100 }}' alt='{{ section.settings.heading | escape }}' loading='eager' width='1100' height='1100'>{%- else -%}<div class='ohh-media-empty'>Add a hero image in the theme editor</div>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  #shopify-section-{{ section.id }}{ background: var(--orivopur-surface); }
+  #shopify-section-{{ section.id }} h1{ color: var(--orivopur-ink); }
+  #shopify-section-{{ section.id }} .ohh-grid{ display:grid; grid-template-columns:1.05fr 1fr; gap:clamp(24px,4vw,52px); align-items:center; }
+  #shopify-section-{{ section.id }} .ohh-title{ font-family:var(--orivopur-font-heading); font-size:clamp(34px,5.5vw,60px); line-height:1.05; margin:0 0 14px; }
+  #shopify-section-{{ section.id }} .ohh-trust{ display:flex; gap:18px; flex-wrap:wrap; margin-top:18px; font-size:13.5px; font-weight:600; color:var(--orivopur-ink-muted); }
+  #shopify-section-{{ section.id }} .ohh-media{ border-radius:var(--orivopur-radius); overflow:hidden; background:var(--orivopur-surface-2); aspect-ratio:1/1; }
+  #shopify-section-{{ section.id }} .ohh-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+  #shopify-section-{{ section.id }} .ohh-media-empty{ display:flex; align-items:center; justify-content:center; height:100%; color:var(--orivopur-ink-muted); padding:24px; text-align:center; }
+  @media(max-width:980px){ #shopify-section-{{ section.id }} .ohh-grid{ grid-template-columns:1fr; } }
+</style>
+{% schema %}
+{
+  "name": "Orivo — Home Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "New from Orivo" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Breathe in a moment of calm." },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "A pocket-sized herbal aromatherapy pen with mullein, thyme and mint — cool, fresh and ready whenever you are." },
+    { "type": "text", "id": "rating", "label": "Rating", "default": "4.8" },
+    { "type": "text", "id": "rating_count", "label": "Rating count", "default": "1,200+ happy customers" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Shop the Herbal Airway Pen" },
+    { "type": "text", "id": "cta_link", "label": "Button link", "default": "/products/orivo-herbal-airway-pen-mullein-mint" },
+    { "type": "text", "id": "trust1", "label": "Trust 1", "default": "Real botanicals" },
+    { "type": "text", "id": "trust2", "label": "Trust 2", "default": "Fast SA shipping" },
+    { "type": "text", "id": "trust3", "label": "Trust 3", "default": "30-day guarantee" }
+  ],
+  "presets": [{ "name": "Orivo — Home Hero" }]
+}
+{% endschema %}
