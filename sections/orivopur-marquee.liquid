@@ -1,0 +1,18 @@
+{{ 'orivopur-styles.css' | asset_url | stylesheet_tag }}
+<div class='orivopur-marquee' id='shopify-section-{{ section.id }}-inner'>
+  <div class='orivopur-marquee-track'>
+    <span>{%- for i in (1..2) -%}{{ section.settings.item1 }} &nbsp;&bull;&nbsp; {{ section.settings.item2 }} &nbsp;&bull;&nbsp; {{ section.settings.item3 }} &nbsp;&bull;&nbsp; {{ section.settings.item4 }} &nbsp;&bull;&nbsp; {%- endfor -%}</span>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Orivo — Marquee",
+  "settings": [
+    { "type": "text", "id": "item1", "label": "Item 1", "default": "Premium Mullein & Mint" },
+    { "type": "text", "id": "item2", "label": "Item 2", "default": "Fast Shipping" },
+    { "type": "text", "id": "item3", "label": "Item 3", "default": "Satisfaction Guaranteed" },
+    { "type": "text", "id": "item4", "label": "Item 4", "default": "Pocket-Sized" }
+  ],
+  "presets": [{ "name": "Orivo — Marquee" }]
+}
+{% endschema %}

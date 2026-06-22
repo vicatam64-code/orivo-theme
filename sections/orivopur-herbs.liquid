@@ -1,0 +1,51 @@
+{{ 'orivopur-styles.css' | asset_url | stylesheet_tag }}
+<section class='orivopur-section orivopur-herbs' id='shopify-section-{{ section.id }}-inner'>
+  <div class='orivopur-container'>
+    <div style='text-align:center;max-width:680px;margin:0 auto;'>
+      <p class='orivopur-eyebrow'>{{ section.settings.eyebrow }}</p>
+      <h2 class='orivopur-h2'>{{ section.settings.heading }}</h2>
+      <p class='orivopur-lead'>{{ section.settings.subheading }}</p>
+    </div>
+    <div class='orivopur-herbs-grid'>
+      {%- for block in section.blocks -%}
+      <div class='orivopur-herb' {{ block.shopify_attributes }}>
+        <div class='orivopur-herb-img'>
+          {%- if block.settings.image != blank -%}<img src='{{ block.settings.image | image_url: width: 700 }}' alt='{{ block.settings.title | escape }}' loading='lazy' width='700' height='525'>{%- endif -%}
+          <div class='orivopur-herb-num'>{{ forloop.index }}</div>
+        </div>
+        <div class='orivopur-herb-body'>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.body }}</p>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<style>
+  #shopify-section-{{ section.id }}{ background: var(--orivopur-bg); }
+  #shopify-section-{{ section.id }} h2,#shopify-section-{{ section.id }} h3{ color: var(--orivopur-ink); }
+</style>
+{% schema %}
+{
+  "name": "Orivo — Herbs",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What is inside" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three Botanicals. One Purpose." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Each chosen for the fresh, calming sense of easy breathing." }
+  ],
+  "blocks": [
+    { "type": "herb", "name": "Herb", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Mullein Leaf" },
+      { "type": "textarea", "id": "body", "label": "Body", "default": "A herb traditionally used in folk wellness, known for its soft, soothing botanical character." }
+    ]}
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Orivo — Herbs", "blocks": [
+    { "type": "herb", "settings": { "title": "Mullein Leaf", "body": "The foundation. Long used in traditional wellness for its gentle, soothing botanical character." } },
+    { "type": "herb", "settings": { "title": "Thyme", "body": "A bright, herbaceous aromatic that adds a clean, garden-fresh note to every breath." } },
+    { "type": "herb", "settings": { "title": "Mint", "body": "Cools and refreshes on contact for that instant open, airy sensation." } }
+  ] }]
+}
+{% endschema %}
