@@ -89,6 +89,7 @@
     if(priceEl){priceEl.textContent=t.getAttribute('data-price');}
     window.__orivopurVid=t.getAttribute('data-vid');
   });});
+  if(cta){cta.addEventListener('click',function(e){e.preventDefault();var id=cta.getAttribute('data-product-id');var lbl=cta.querySelector('[data-atc-label]');var prev=lbl?lbl.textContent:'';if(lbl)lbl.textContent='Adding...';fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:[{id:parseInt(id),quantity:1}]})}).then(function(r){if(!r.ok)throw 0;window.location.href='/cart';}).catch(function(){if(lbl)lbl.textContent=prev;window.location.href='/cart';});});}
   var imgs=root.querySelectorAll('.orivopur-gallery-main img[data-slide]');
   var thumbs=root.querySelectorAll('[data-thumb]');
   var cur=0;
