@@ -1,0 +1,45 @@
+{{ 'orivopur-styles.css' | asset_url | stylesheet_tag }}
+<section class='orivopur-section orivopur-faq' id='shopify-section-{{ section.id }}-inner'>
+  <div class='orivopur-container'>
+    <div style='text-align:center;max-width:680px;margin:0 auto;'>
+      <p class='orivopur-eyebrow'>{{ section.settings.eyebrow }}</p>
+      <h2 class='orivopur-h2'>{{ section.settings.heading }}</h2>
+    </div>
+    <div class='orivopur-faq-wrap'>
+      {%- for block in section.blocks -%}
+      <details class='orivopur-faq-item' {{ block.shopify_attributes }}{% if forloop.first %} open{% endif %}>
+        <summary>{{ block.settings.q }}</summary>
+        <p>{{ block.settings.a }}</p>
+      </details>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.disclaimer != blank -%}<p class='orivopur-disclaimer'>{{ section.settings.disclaimer }}</p>{%- endif -%}
+  </div>
+</section>
+<style>
+  #shopify-section-{{ section.id }}{ background: var(--orivopur-bg); }
+  #shopify-section-{{ section.id }} h2{ color: var(--orivopur-ink); }
+</style>
+{% schema %}
+{
+  "name": "Orivo — FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Questions" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Common Questions" },
+    { "type": "textarea", "id": "disclaimer", "label": "Disclaimer", "default": "Orivo is a botanical aromatherapy product for adult use and is not a medical device or medicine. It is not intended to diagnose, treat, cure, or prevent any disease. If you have a health condition, are pregnant or breastfeeding, consult a healthcare professional before use. Keep out of reach of children." }
+  ],
+  "blocks": [
+    { "type": "faq", "name": "FAQ item", "settings": [
+      { "type": "text", "id": "q", "label": "Question", "default": "What is it?" },
+      { "type": "textarea", "id": "a", "label": "Answer", "default": "A pocket-sized herbal aromatherapy pen." }
+    ]}
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "Orivo — FAQ", "blocks": [
+    { "type": "faq", "settings": { "q": "What makes Orivo different?", "a": "It is a clean, pocket-sized aromatherapy ritual with mullein, thyme and mint botanicals — no water, no capsules, no aftertaste." } },
+    { "type": "faq", "settings": { "q": "How do I use it?", "a": "Lift the pen toward your nose and take a slow, gentle breath in. Use whenever you want a fresh, calming moment." } },
+    { "type": "faq", "settings": { "q": "Is it a medicine or vape?", "a": "No. Orivo is a botanical aromatherapy product for adult use. It is not a medicine, nicotine product, or medical device." } },
+    { "type": "faq", "settings": { "q": "Shipping and returns?", "a": "We ship across South Africa. If you are not happy, return within 30 days for a full refund." } }
+  ] }]
+}
+{% endschema %}

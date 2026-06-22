@@ -1,0 +1,26 @@
+{{ 'orivopur-styles.css' | asset_url | stylesheet_tag }}
+{%- assign cv = product.selected_or_first_available_variant -%}
+<div class='orivopur-sticky' id='orivopur-sticky-{{ section.id }}' data-vid='{{ cv.id }}'>{{ section.settings.label }} &mdash; {{ cv.price | money }}</div>
+<script>
+(function(){
+  var bar=document.getElementById('orivopur-sticky-{{ section.id }}');
+  if(!bar)return;
+  var hero=document.querySelector('.orivopur-hero');
+  if(hero && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(e){bar.classList.toggle('is-visible',!e[0].isIntersecting);}).observe(hero);
+  } else { bar.classList.add('is-visible'); }
+  bar.addEventListener('click',function(){
+    var id=window.__orivopurVid||bar.getAttribute('data-vid');
+    fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:[{id:parseInt(id),quantity:1}]})}).then(function(r){if(!r.ok)throw 0;window.location.href='/cart';}).catch(function(){window.location.href='/cart';});
+  });
+})();
+</script>
+{% schema %}
+{
+  "name": "Orivo — Sticky ATC",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "Add to Cart" }
+  ],
+  "presets": [{ "name": "Orivo — Sticky ATC" }]
+}
+{% endschema %}
