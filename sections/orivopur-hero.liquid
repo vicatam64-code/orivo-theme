@@ -1,0 +1,132 @@
+{{ 'orivopur-styles.css' | asset_url | stylesheet_tag }}
+{%- assign cv = product.selected_or_first_available_variant -%}
+<section class='orivopur-section orivopur-hero' id='shopify-section-{{ section.id }}-inner'>
+  <div class='orivopur-container'>
+    {%- if section.settings.show_countdown -%}
+    <div class='orivopur-countdown' data-minutes='{{ section.settings.countdown_minutes }}'>
+      <span class='cd-label'>{{ section.settings.countdown_label }}</span>
+      <div class='orivopur-cd-units'>
+        <div class='orivopur-cd-unit'><b data-cd='h'>00</b><span>Hrs</span></div>
+        <div class='orivopur-cd-unit'><b data-cd='m'>00</b><span>Min</span></div>
+        <div class='orivopur-cd-unit'><b data-cd='s'>00</b><span>Sec</span></div>
+      </div>
+    </div>
+    {%- endif -%}
+    <div class='orivopur-hero-grid'>
+      <div class='orivopur-gallery'>
+        <div class='orivopur-gallery-main'>
+          {%- if product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              <img src='{{ media | image_url: width: 1200 }}' alt='{{ product.title | escape }}' data-slide='{{ forloop.index0 }}' style='{% unless forloop.first %}display:none;{% endunless %}' loading='{% if forloop.first %}eager{% else %}lazy{% endif %}' width='1200' height='1200'>
+            {%- endfor -%}
+            <div class='orivopur-gallery-arrow prev' data-gprev>&#8249;</div>
+            <div class='orivopur-gallery-arrow next' data-gnext>&#8250;</div>
+          {%- else -%}
+            <div class='orivopur-gallery-empty'>Add product photos in Shopify Admin &rarr; Products &rarr; Media. They will appear here automatically.</div>
+          {%- endif -%}
+        </div>
+        {%- if product.media.size > 1 -%}
+        <div class='orivopur-thumbs'>
+          {%- for media in product.media -%}
+            <div class='orivopur-thumb{% if forloop.first %} is-active{% endif %}' data-thumb='{{ forloop.index0 }}'><img src='{{ media | image_url: width: 160 }}' alt='thumb' width='64' height='64'></div>
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+      </div>
+      <div class='orivopur-buybox'>
+        <div class='orivopur-rating-row'><span class='orivopur-stars'>&#9733;&#9733;&#9733;&#9733;&#9733;</span> <strong>{{ section.settings.rating }}</strong> <span>({{ section.settings.rating_count }} reviews)</span></div>
+        <h1 class='orivopur-product-title'>{{ product.title }}</h1>
+        <div class='orivopur-trust-icons'>
+          <div class='ti'><span class='em'>{{ section.settings.icon1_emoji }}</span><span>{{ section.settings.icon1_text }}</span></div>
+          <div class='ti'><span class='em'>{{ section.settings.icon2_emoji }}</span><span>{{ section.settings.icon2_text }}</span></div>
+          <div class='ti'><span class='em'>{{ section.settings.icon3_emoji }}</span><span>{{ section.settings.icon3_text }}</span></div>
+          <div class='ti'><span class='em'>{{ section.settings.icon4_emoji }}</span><span>{{ section.settings.icon4_text }}</span></div>
+        </div>
+        {%- if section.settings.urgency_text != blank -%}<div class='orivopur-urgency'><span class='orivopur-dot'></span>{{ section.settings.urgency_text }}</div>{%- endif -%}
+        <div class='orivopur-sale-label'>{{ section.settings.sale_label }}</div>
+        <div class='orivopur-tiers' data-tiers>
+          {%- for v in product.variants -%}
+            {%- assign diff = v.compare_at_price | minus: v.price -%}
+            {%- assign pct = 0 -%}
+            {%- if v.compare_at_price > 0 -%}{%- assign pct = diff | times: 100 | divided_by: v.compare_at_price -%}{%- endif -%}
+            <div class='orivopur-tier{% if forloop.first %} is-active{% endif %}' data-tier data-vid='{{ v.id }}' data-price='{{ v.price | money }}'>
+              {%- if forloop.index == 2 -%}<span class='orivopur-tier-badge'>Most Popular</span>{%- elsif forloop.index == 3 -%}<span class='orivopur-tier-badge'>Best Value</span>{%- endif -%}
+              <div class='orivopur-tier-radio'></div>
+              <div class='orivopur-tier-main'>
+                <div class='orivopur-tier-name'>{{ v.title }}</div>
+                {%- if pct > 0 -%}<div class='orivopur-tier-sub'>Save {{ pct }}% today</div>{%- endif -%}
+              </div>
+              <div class='orivopur-tier-price'>
+                <div class='now'>{{ v.price | money }}</div>
+                {%- if v.compare_at_price > v.price -%}<div class='was'>{{ v.compare_at_price | money }}</div>{%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        <div class='orivopur-atc-wrap'>
+          <a href='#' class='orivopur-btn' data-clone-cta data-product-id='{{ cv.id }}'><span data-atc-label>{{ section.settings.cta_label }}</span> &mdash; <span data-atc-price>{{ cv.price | money }}</span></a>
+          <div class='orivopur-atc-note'><span>&#128274; {{ section.settings.note1 }}</span><span>&#10003; {{ section.settings.note2 }}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  #shopify-section-{{ section.id }}{ background: {{ section.settings.bg_color | default: '#ffffff' }}; }
+  #shopify-section-{{ section.id }} h1,#shopify-section-{{ section.id }} h2,#shopify-section-{{ section.id }} h3,#shopify-section-{{ section.id }} h4{ color: var(--orivopur-ink); }
+</style>
+<script>
+(function(){
+  var root=document.getElementById('shopify-section-{{ section.id }}-inner');
+  if(!root)return;
+  var tiers=root.querySelectorAll('[data-tier]');
+  var cta=root.querySelector('[data-clone-cta]');
+  var priceEl=root.querySelector('[data-atc-price]');
+  tiers.forEach(function(t){t.addEventListener('click',function(){
+    tiers.forEach(function(x){x.classList.remove('is-active');});
+    t.classList.add('is-active');
+    if(cta){cta.setAttribute('data-product-id',t.getAttribute('data-vid'));}
+    if(priceEl){priceEl.textContent=t.getAttribute('data-price');}
+    window.__orivopurVid=t.getAttribute('data-vid');
+  });});
+  var imgs=root.querySelectorAll('.orivopur-gallery-main img[data-slide]');
+  var thumbs=root.querySelectorAll('[data-thumb]');
+  var cur=0;
+  function show(i){if(!imgs.length)return;i=(i+imgs.length)%imgs.length;imgs.forEach(function(im,k){im.style.display=k===i?'block':'none';});thumbs.forEach(function(th,k){th.classList.toggle('is-active',k===i);});cur=i;}
+  thumbs.forEach(function(th){th.addEventListener('click',function(){show(parseInt(th.getAttribute('data-thumb')));});});
+  var pv=root.querySelector('[data-gprev]'),nx=root.querySelector('[data-gnext]');
+  if(pv)pv.addEventListener('click',function(){show(cur-1);});
+  if(nx)nx.addEventListener('click',function(){show(cur+1);});
+  var cd=root.querySelector('.orivopur-countdown');
+  if(cd){var mins=parseInt(cd.getAttribute('data-minutes'))||30;var end=Date.now()+mins*60000;
+    function tick(){var d=Math.max(0,end-Date.now());var h=Math.floor(d/3600000),m=Math.floor(d%3600000/60000),s=Math.floor(d%60000/1000);var H=cd.querySelector('[data-cd=h]'),M=cd.querySelector('[data-cd=m]'),S=cd.querySelector('[data-cd=s]');if(H)H.textContent=('0'+h).slice(-2);if(M)M.textContent=('0'+m).slice(-2);if(S)S.textContent=('0'+s).slice(-2);}
+    tick();setInterval(tick,1000);}
+})();
+</script>
+{% schema %}
+{
+  "name": "Orivo — Hero",
+  "settings": [
+    { "type": "text", "id": "rating", "label": "Rating value", "default": "4.8" },
+    { "type": "text", "id": "rating_count", "label": "Rating count", "default": "1,200+" },
+    { "type": "text", "id": "icon1_emoji", "label": "Icon 1 emoji", "default": "🌿" },
+    { "type": "text", "id": "icon1_text", "label": "Icon 1 text", "default": "Real botanical extracts" },
+    { "type": "text", "id": "icon2_emoji", "label": "Icon 2 emoji", "default": "🫧" },
+    { "type": "text", "id": "icon2_text", "label": "Icon 2 text", "default": "Cooling, fresh sensation" },
+    { "type": "text", "id": "icon3_emoji", "label": "Icon 3 emoji", "default": "🚫" },
+    { "type": "text", "id": "icon3_text", "label": "Icon 3 text", "default": "No pills, no taste" },
+    { "type": "text", "id": "icon4_emoji", "label": "Icon 4 emoji", "default": "⚡" },
+    { "type": "text", "id": "icon4_text", "label": "Icon 4 text", "default": "Pocket-sized, on the go" },
+    { "type": "text", "id": "urgency_text", "label": "Urgency line", "default": "Selling fast — limited launch stock" },
+    { "type": "text", "id": "sale_label", "label": "Sale label", "default": "BUNDLE & SAVE — WHILE STOCKS LAST" },
+    { "type": "checkbox", "id": "show_countdown", "label": "Show countdown", "default": true },
+    { "type": "text", "id": "countdown_label", "label": "Countdown label", "default": "Sale ends in" },
+    { "type": "range", "id": "countdown_minutes", "label": "Countdown minutes", "min": 5, "max": 120, "step": 5, "default": 30 },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Add to Cart" },
+    { "type": "text", "id": "note1", "label": "Note 1", "default": "Secure checkout" },
+    { "type": "text", "id": "note2", "label": "Note 2", "default": "30-day money-back guarantee" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "Orivo — Hero" }]
+}
+{% endschema %}
